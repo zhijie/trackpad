@@ -1,0 +1,317 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D5B3879A160B74BE00DF8A97 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5B38799160B74BE00DF8A97 /* UIKit.framework */; };
+		D5B3879C160B74BE00DF8A97 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5B3879B160B74BE00DF8A97 /* Foundation.framework */; };
+		D5B3879E160B74BE00DF8A97 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5B3879D160B74BE00DF8A97 /* CoreGraphics.framework */; };
+		D5B387A4160B74BE00DF8A97 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D5B387A2160B74BE00DF8A97 /* InfoPlist.strings */; };
+		D5B387A6160B74BE00DF8A97 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B387A5160B74BE00DF8A97 /* main.m */; };
+		D5B387AA160B74BE00DF8A97 /* OZLAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B387A9160B74BE00DF8A97 /* OZLAppDelegate.m */; };
+		D5B387AD160B74BE00DF8A97 /* OZLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B387AC160B74BE00DF8A97 /* OZLViewController.m */; };
+		D5B387B0160B74BE00DF8A97 /* OZLViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5B387AE160B74BE00DF8A97 /* OZLViewController_iPhone.xib */; };
+		D5B387B3160B74BE00DF8A97 /* OZLViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5B387B1160B74BE00DF8A97 /* OZLViewController_iPad.xib */; };
+		D5B387BC160B75A400DF8A97 /* OZLTouchpadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B387BA160B75A400DF8A97 /* OZLTouchpadViewController.m */; };
+		D5B387BD160B75A400DF8A97 /* OZLTouchpadViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5B387BB160B75A400DF8A97 /* OZLTouchpadViewController_iPhone.xib */; };
+		D5B387C0160B7C5900DF8A97 /* OZLTouchImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B387BF160B7C5900DF8A97 /* OZLTouchImageView.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		D5B38795160B74BE00DF8A97 /* TrackPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrackPad.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5B38799160B74BE00DF8A97 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		D5B3879B160B74BE00DF8A97 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D5B3879D160B74BE00DF8A97 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		D5B387A1160B74BE00DF8A97 /* TrackPad-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TrackPad-Info.plist"; sourceTree = "<group>"; };
+		D5B387A3160B74BE00DF8A97 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D5B387A5160B74BE00DF8A97 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D5B387A7160B74BE00DF8A97 /* TrackPad-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TrackPad-Prefix.pch"; sourceTree = "<group>"; };
+		D5B387A8160B74BE00DF8A97 /* OZLAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OZLAppDelegate.h; sourceTree = "<group>"; };
+		D5B387A9160B74BE00DF8A97 /* OZLAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OZLAppDelegate.m; sourceTree = "<group>"; };
+		D5B387AB160B74BE00DF8A97 /* OZLViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OZLViewController.h; sourceTree = "<group>"; };
+		D5B387AC160B74BE00DF8A97 /* OZLViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OZLViewController.m; sourceTree = "<group>"; };
+		D5B387AF160B74BE00DF8A97 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/OZLViewController_iPhone.xib; sourceTree = "<group>"; };
+		D5B387B2160B74BE00DF8A97 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/OZLViewController_iPad.xib; sourceTree = "<group>"; };
+		D5B387B9160B75A400DF8A97 /* OZLTouchpadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OZLTouchpadViewController.h; sourceTree = "<group>"; };
+		D5B387BA160B75A400DF8A97 /* OZLTouchpadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OZLTouchpadViewController.m; sourceTree = "<group>"; };
+		D5B387BB160B75A400DF8A97 /* OZLTouchpadViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OZLTouchpadViewController_iPhone.xib; sourceTree = "<group>"; };
+		D5B387BE160B7C5900DF8A97 /* OZLTouchImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OZLTouchImageView.h; sourceTree = "<group>"; };
+		D5B387BF160B7C5900DF8A97 /* OZLTouchImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OZLTouchImageView.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D5B38792160B74BE00DF8A97 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D5B3879A160B74BE00DF8A97 /* UIKit.framework in Frameworks */,
+				D5B3879C160B74BE00DF8A97 /* Foundation.framework in Frameworks */,
+				D5B3879E160B74BE00DF8A97 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D5B3878A160B74BE00DF8A97 = {
+			isa = PBXGroup;
+			children = (
+				D5B3879F160B74BE00DF8A97 /* TrackPad */,
+				D5B38798160B74BE00DF8A97 /* Frameworks */,
+				D5B38796160B74BE00DF8A97 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D5B38796160B74BE00DF8A97 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D5B38795160B74BE00DF8A97 /* TrackPad.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D5B38798160B74BE00DF8A97 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D5B38799160B74BE00DF8A97 /* UIKit.framework */,
+				D5B3879B160B74BE00DF8A97 /* Foundation.framework */,
+				D5B3879D160B74BE00DF8A97 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D5B3879F160B74BE00DF8A97 /* TrackPad */ = {
+			isa = PBXGroup;
+			children = (
+				D5B387A8160B74BE00DF8A97 /* OZLAppDelegate.h */,
+				D5B387A9160B74BE00DF8A97 /* OZLAppDelegate.m */,
+				D5B387AB160B74BE00DF8A97 /* OZLViewController.h */,
+				D5B387AC160B74BE00DF8A97 /* OZLViewController.m */,
+				D5B387AE160B74BE00DF8A97 /* OZLViewController_iPhone.xib */,
+				D5B387B1160B74BE00DF8A97 /* OZLViewController_iPad.xib */,
+				D5B387B9160B75A400DF8A97 /* OZLTouchpadViewController.h */,
+				D5B387BA160B75A400DF8A97 /* OZLTouchpadViewController.m */,
+				D5B387BB160B75A400DF8A97 /* OZLTouchpadViewController_iPhone.xib */,
+				D5B387BE160B7C5900DF8A97 /* OZLTouchImageView.h */,
+				D5B387BF160B7C5900DF8A97 /* OZLTouchImageView.m */,
+				D5B387A0160B74BE00DF8A97 /* Supporting Files */,
+			);
+			path = TrackPad;
+			sourceTree = "<group>";
+		};
+		D5B387A0160B74BE00DF8A97 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D5B387A1160B74BE00DF8A97 /* TrackPad-Info.plist */,
+				D5B387A2160B74BE00DF8A97 /* InfoPlist.strings */,
+				D5B387A5160B74BE00DF8A97 /* main.m */,
+				D5B387A7160B74BE00DF8A97 /* TrackPad-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D5B38794160B74BE00DF8A97 /* TrackPad */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D5B387B6160B74BE00DF8A97 /* Build configuration list for PBXNativeTarget "TrackPad" */;
+			buildPhases = (
+				D5B38791160B74BE00DF8A97 /* Sources */,
+				D5B38792160B74BE00DF8A97 /* Frameworks */,
+				D5B38793160B74BE00DF8A97 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TrackPad;
+			productName = TrackPad;
+			productReference = D5B38795160B74BE00DF8A97 /* TrackPad.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D5B3878C160B74BE00DF8A97 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = OZL;
+				LastUpgradeCheck = 0440;
+				ORGANIZATIONNAME = "Lee Zhijie";
+			};
+			buildConfigurationList = D5B3878F160B74BE00DF8A97 /* Build configuration list for PBXProject "TrackPad" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = D5B3878A160B74BE00DF8A97;
+			productRefGroup = D5B38796160B74BE00DF8A97 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D5B38794160B74BE00DF8A97 /* TrackPad */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D5B38793160B74BE00DF8A97 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D5B387A4160B74BE00DF8A97 /* InfoPlist.strings in Resources */,
+				D5B387B0160B74BE00DF8A97 /* OZLViewController_iPhone.xib in Resources */,
+				D5B387B3160B74BE00DF8A97 /* OZLViewController_iPad.xib in Resources */,
+				D5B387BD160B75A400DF8A97 /* OZLTouchpadViewController_iPhone.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D5B38791160B74BE00DF8A97 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D5B387A6160B74BE00DF8A97 /* main.m in Sources */,
+				D5B387AA160B74BE00DF8A97 /* OZLAppDelegate.m in Sources */,
+				D5B387AD160B74BE00DF8A97 /* OZLViewController.m in Sources */,
+				D5B387BC160B75A400DF8A97 /* OZLTouchpadViewController.m in Sources */,
+				D5B387C0160B7C5900DF8A97 /* OZLTouchImageView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		D5B387A2160B74BE00DF8A97 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D5B387A3160B74BE00DF8A97 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		D5B387AE160B74BE00DF8A97 /* OZLViewController_iPhone.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D5B387AF160B74BE00DF8A97 /* en */,
+			);
+			name = OZLViewController_iPhone.xib;
+			sourceTree = "<group>";
+		};
+		D5B387B1160B74BE00DF8A97 /* OZLViewController_iPad.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D5B387B2160B74BE00DF8A97 /* en */,
+			);
+			name = OZLViewController_iPad.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D5B387B4160B74BE00DF8A97 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D5B387B5160B74BE00DF8A97 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D5B387B7160B74BE00DF8A97 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TrackPad/TrackPad-Prefix.pch";
+				INFOPLIST_FILE = "TrackPad/TrackPad-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		D5B387B8160B74BE00DF8A97 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TrackPad/TrackPad-Prefix.pch";
+				INFOPLIST_FILE = "TrackPad/TrackPad-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D5B3878F160B74BE00DF8A97 /* Build configuration list for PBXProject "TrackPad" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D5B387B4160B74BE00DF8A97 /* Debug */,
+				D5B387B5160B74BE00DF8A97 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D5B387B6160B74BE00DF8A97 /* Build configuration list for PBXNativeTarget "TrackPad" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D5B387B7160B74BE00DF8A97 /* Debug */,
+				D5B387B8160B74BE00DF8A97 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D5B3878C160B74BE00DF8A97 /* Project object */;
+}
