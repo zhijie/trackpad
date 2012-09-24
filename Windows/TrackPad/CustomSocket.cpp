@@ -54,6 +54,11 @@ void CCustomSocket::OnReceive(int nErrorCode)
 
 void CCustomSocket::OnClose(int nErrorCode)
 {
+
+	if(nErrorCode==0) 
+	{ 
+	((CTrackPadDlg*)m_pDlg)->OnSocketClose(); 
+	}
 	CAsyncSocket::OnClose(nErrorCode);
 }
 

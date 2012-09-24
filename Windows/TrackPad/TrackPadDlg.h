@@ -45,4 +45,6 @@ public:
 	CStatic mInfoLabel;
 	CButton mBtnStartServer;
 	CButton mBtnStopServer;
+	void Tranlator(CString command);
+	void OnSocketClose(void);
 };

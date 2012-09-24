@@ -162,16 +162,16 @@ void CTrackPadDlg::OnSocketAccept(void)
 	UINT port;
 	if(m_sListener.Accept(m_sConnected)){
 		m_sConnected.GetSockName(strIP,port);
-		mInfoLabel.SetWindowTextW(L"Client Connected,IP :"+ strIP);
+		mInfoLabel.SetWindowTextW(_T("Client Connected,IP :")+ strIP);
 		UpdateData(FALSE);
 	}else{
-		AfxMessageBox(L"Cannoot Accept Connection");
+		AfxMessageBox(_T("Cannoot Accept Connection"));
 	}
 }
 
 void CTrackPadDlg::OnSocketConnect(void)
 {
-	mInfoLabel.SetWindowTextW(L"Socket connected.");
+	mInfoLabel.SetWindowTextW(_T("Socket connected."));
 }
 
 void CTrackPadDlg::OnSocketReceive(void)
@@ -181,11 +181,12 @@ void CTrackPadDlg::OnSocketReceive(void)
 	int iLen;
 	iLen=m_sConnected.Receive(pBuf,1024);
 	if(iLen==SOCKET_ERROR)	{
-		AfxMessageBox(L"Could not Recieve");
+		AfxMessageBox(_T("Could not Recieve"));
 	}else{
 		 pBuf[iLen]=NULL;
 		 strData=pBuf;
 		 mInfoLabel.SetWindowTextW(strData);   //display in server
+		 Tranlator(strData);
 		 UpdateData(FALSE);
 		 m_sConnected.Send(pBuf,iLen);
 		 //m_sConnected.ShutDown(0);  
@@ -193,17 +194,25 @@ void CTrackPadDlg::OnSocketReceive(void)
 	}
 }
 
+
+void CTrackPadDlg::OnSocketClose(void)
+{
+	m_sConnected.Close(); 
+	m_sListener.Close(); 
+}
+
+
 void CTrackPadDlg::OnBnClickedButtonStartserver()
 {
 	UpdateData(TRUE);
 	m_sListener.Create(m_port); 
 	if(m_sListener.Listen()==FALSE)
 	{
-		AfxMessageBox(L"Unable to Listen on that port,please try another port");
+		AfxMessageBox(_T("Unable to Listen on that port,please try another port"));
 		m_sListener.Close(); 
 		return;			
 	}
-	mInfoLabel.SetWindowTextW(L"Listening For Connections!!!");
+	mInfoLabel.SetWindowTextW(_T("Listening For Connections!!!"));
 	UpdateData(FALSE);
 	mBtnStartServer.EnableWindow(FALSE);
 	mBtnStopServer.EnableWindow(TRUE); 
@@ -213,8 +222,87 @@ void CTrackPadDlg::OnBnClickedButtonStopServer()
 {
 	m_sConnected.Close(); 
 	m_sListener.Close(); 
-	mInfoLabel.SetWindowTextW(L"Idle!!");	
+	mInfoLabel.SetWindowTextW(_T("Idle!!"));	
 	UpdateData(FALSE);
 	mBtnStartServer.EnableWindow(TRUE);
 	mBtnStopServer.EnableWindow(FALSE); 
+}
+
+/*
+Command :
+MOUSEEVENTF_MOVE x y
+MOUSEEVENTF_LEFTDOWN
+MOUSEEVENTF_LEFTUP
+MOUSEEVENTF_RIGHTDOWN
+MOUSEEVENTF_RIGHTUP
+MOUSEEVENTF_MIDDLEDOWN
+MOUSEEVENTF_MIDDLEUP
+MOUSEEVENTF_WHEEL WHEEL_DELTA
+
+reference :
+http://msdn.microsoft.com/en-us/library/windows/desktop/ms646273(v=vs.85).aspx
+*/
+void CTrackPadDlg::Tranlator(CString commandString)
+{
+	// get data first, command and data
+	int nTokenPos = 0;
+	CString strToken = commandString.Tokenize(_T(" "), nTokenPos);
+	CString command[3];
+	int i =0;
+	while(!strToken.IsEmpty() && i < 3){
+		command[i++] = strToken;
+		strToken = commandString.Tokenize(_T(" "), nTokenPos);
+	}
+
+	INPUT in;
+	in.type = INPUT_MOUSE;
+	in.mi.dx = 0;
+	in.mi.dy = 0;
+	in.mi.time = 0;
+	in.mi.dwExtraInfo = 0;
+	in.mi.mouseData = 0;
+	int l = command[0].GetLength();
+	CString test = _T("MOUSEEVENTF_LEFTDOWN");
+	int ll = test.GetLength();
+	
+	if(command[0].Find(_T("MOUSEEVENTF_MOVE")) == 0){
+		in.mi.dwFlags = MOUSEEVENTF_MOVE;
+		in.mi.dx = _tstof(command[1].GetBuffer(command[1].GetLength()));
+		in.mi.dy = _tstof(command[2].GetBuffer(command[2].GetLength()));
+
+		mouse_event(MOUSEEVENTF_MOVE,in.mi.dx,in.mi.dy,0,0);
+	}else if(command[0].Find(_T("MOUSEEVENTF_LEFTDOWN")) == 0){
+		in.mi.dwFlags = MOUSEEVENTF_LEFTDOWN;
+
+		mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0);
+	}else if(command[0].Find(_T("MOUSEEVENTF_LEFTUP")) == 0){
+		in.mi.dwFlags = MOUSEEVENTF_LEFTUP;
+
+		mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0);
+	}else if(command[0].Find(_T("MOUSEEVENTF_RIGHTDOWN")) == 0){
+		in.mi.dwFlags = MOUSEEVENTF_RIGHTDOWN;
+
+		mouse_event(MOUSEEVENTF_RIGHTDOWN,0,0,0,0);
+	}else if(command[0].Find(_T("MOUSEEVENTF_RIGHTUP")) == 0){
+		in.mi.dwFlags = MOUSEEVENTF_RIGHTUP;
+
+		mouse_event(MOUSEEVENTF_RIGHTUP,0,0,0,0);
+	}else if(command[0].Find(_T("MOUSEEVENTF_MIDDLEDOWN")) == 0){
+		in.mi.dwFlags = MOUSEEVENTF_MIDDLEDOWN;
+
+		mouse_event(MOUSEEVENTF_MIDDLEDOWN,0,0,0,0);
+	}else if(command[0].Find(_T("MOUSEEVENTF_MIDDLEUP")) == 0){
+		in.mi.dwFlags = MOUSEEVENTF_MIDDLEUP;
+
+		mouse_event(MOUSEEVENTF_MIDDLEUP,0,0,0,0);
+	}else if(command[0].Find(_T("MOUSEEVENTF_WHEEL")) == 0){
+		in.mi.dwFlags = MOUSEEVENTF_WHEEL;
+		in.mi.mouseData = WHEEL_DELTA * _tstof(command[1].GetBuffer(command[1].GetLength()));
+
+		mouse_event(MOUSEEVENTF_MIDDLEDOWN,0,0,in.mi.mouseData,0);
+	}else {
+		return;
+	}
+
+	//SendInput(1,&in,sizeof(in));
 }
