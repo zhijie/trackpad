@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface OZLViewController : UIViewController
+@property (strong, nonatomic) IBOutlet UITextField *mServerIPTextField;
+@property (strong, nonatomic) IBOutlet UITextField *mServerPortTextField;
+- (IBAction)onClickConnection:(id)sender;
 
 @end

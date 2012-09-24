@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D55680801610B3010018F7E7 /* mouse_left.png in Resources */ = {isa = PBXBuildFile; fileRef = D556807D1610B3010018F7E7 /* mouse_left.png */; };
+		D55680811610B3010018F7E7 /* mouse_middle.png in Resources */ = {isa = PBXBuildFile; fileRef = D556807E1610B3010018F7E7 /* mouse_middle.png */; };
+		D55680821610B3010018F7E7 /* mouse_right.png in Resources */ = {isa = PBXBuildFile; fileRef = D556807F1610B3010018F7E7 /* mouse_right.png */; };
 		D5B3879A160B74BE00DF8A97 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5B38799160B74BE00DF8A97 /* UIKit.framework */; };
 		D5B3879C160B74BE00DF8A97 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5B3879B160B74BE00DF8A97 /* Foundation.framework */; };
 		D5B3879E160B74BE00DF8A97 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5B3879D160B74BE00DF8A97 /* CoreGraphics.framework */; };
@@ -22,6 +25,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D556807D1610B3010018F7E7 /* mouse_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mouse_left.png; sourceTree = "<group>"; };
+		D556807E1610B3010018F7E7 /* mouse_middle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mouse_middle.png; sourceTree = "<group>"; };
+		D556807F1610B3010018F7E7 /* mouse_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mouse_right.png; sourceTree = "<group>"; };
 		D5B38795160B74BE00DF8A97 /* TrackPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrackPad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5B38799160B74BE00DF8A97 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D5B3879B160B74BE00DF8A97 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -57,6 +63,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D556807C1610B3010018F7E7 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				D556807D1610B3010018F7E7 /* mouse_left.png */,
+				D556807E1610B3010018F7E7 /* mouse_middle.png */,
+				D556807F1610B3010018F7E7 /* mouse_right.png */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
 		D5B3878A160B74BE00DF8A97 = {
 			isa = PBXGroup;
 			children = (
@@ -87,6 +103,7 @@
 		D5B3879F160B74BE00DF8A97 /* TrackPad */ = {
 			isa = PBXGroup;
 			children = (
+				D556807C1610B3010018F7E7 /* images */,
 				D5B387A8160B74BE00DF8A97 /* OZLAppDelegate.h */,
 				D5B387A9160B74BE00DF8A97 /* OZLAppDelegate.m */,
 				D5B387AB160B74BE00DF8A97 /* OZLViewController.h */,
@@ -170,6 +187,9 @@
 				D5B387B0160B74BE00DF8A97 /* OZLViewController_iPhone.xib in Resources */,
 				D5B387B3160B74BE00DF8A97 /* OZLViewController_iPad.xib in Resources */,
 				D5B387BD160B75A400DF8A97 /* OZLTouchpadViewController_iPhone.xib in Resources */,
+				D55680801610B3010018F7E7 /* mouse_left.png in Resources */,
+				D55680811610B3010018F7E7 /* mouse_middle.png in Resources */,
+				D55680821610B3010018F7E7 /* mouse_right.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,6 +330,7 @@
 				D5B387B8160B74BE00DF8A97 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

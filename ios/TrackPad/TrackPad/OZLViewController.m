@@ -13,6 +13,8 @@
 @end
 
 @implementation OZLViewController
+@synthesize mServerIPTextField;
+@synthesize mServerPortTextField;
 
 - (void)viewDidLoad
 {
@@ -22,6 +24,8 @@
 
 - (void)viewDidUnload
 {
+    [self setMServerIPTextField:nil];
+    [self setMServerPortTextField:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -35,4 +39,6 @@
     }
 }
 
+- (IBAction)onClickConnection:(id)sender {
+}
 @end
