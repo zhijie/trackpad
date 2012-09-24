@@ -18,11 +18,19 @@ import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 public class TouchPadActivity extends Activity {
 	private static final String TAG = "lzhj"; 
-    FrameLayout mTouchpadLayout;
+	RelativeLayout mTouchpadLayout;
+    ImageView mMouseLeftImageView;
+    ImageView mMouseRightImageView;
+    ImageView mMouseMiddleImageView;
+    FrameLayout mTouchpaneLayout;
+    
     
     LinearLayout mSetupLayout;
     EditText mServerIPEditText;
@@ -36,7 +44,12 @@ public class TouchPadActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        mTouchpadLayout = (FrameLayout)findViewById(R.id.touchpad_layout);
+        mTouchpadLayout = (RelativeLayout)findViewById(R.id.touchpad_layout);
+        mMouseLeftImageView = (ImageView)findViewById(R.id.mouse_left);
+        mMouseMiddleImageView = (ImageView)findViewById(R.id.mouse_middle_btn);
+        mMouseRightImageView = (ImageView)findViewById(R.id.mouse_right);
+        mTouchpaneLayout = (FrameLayout)findViewById(R.id.touch_panel);
+        
         mSetupLayout = (LinearLayout)findViewById(R.id.setup_ll);
         mServerIPEditText = (EditText)findViewById(R.id.serverip_et);
         mServerPortText = (EditText)findViewById(R.id.port_et);
@@ -70,30 +83,101 @@ public class TouchPadActivity extends Activity {
 			}
 		});
         
-        mTouchpadLayout.setOnTouchListener(new OnTouchListener() {
+        mMouseLeftImageView.setOnTouchListener(new OnTouchListener() {
 			
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				String action = null ;
+				switch (event.getAction()) {
+				case MotionEvent.ACTION_DOWN:
+					action = "MOUSEEVENTF_LEFTDOWN";
+					break;
+				case MotionEvent.ACTION_UP:
+					action = "MOUSEEVENTF_LEFTUP";
+					break;
+				default:
+					break;
+				}
+				if (action != null) {
+					sendSocketMessage(action);
+				}
+				return true;
+			}
+		});
+        mMouseRightImageView.setOnTouchListener(new OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				String action = null ;
+				switch (event.getAction()) {
+				case MotionEvent.ACTION_DOWN:
+					action = "MOUSEEVENTF_RIGHTDOWN";
+					break;
+				case MotionEvent.ACTION_UP:
+					action = "MOUSEEVENTF_RIGHTUP";
+					break;
+				default:
+					break;
+				}
+				if (action != null) {
+					sendSocketMessage(action);
+				}
+				return true;
+			}
+		});
+        mMouseMiddleImageView.setOnTouchListener(new OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				String action = null ;
+				switch (event.getAction()) {
+				case MotionEvent.ACTION_DOWN:
+					action = "MOUSEEVENTF_MIDDLEDOWN";
+					break;
+				case MotionEvent.ACTION_MOVE:
+					break;
+				case MotionEvent.ACTION_UP:
+					action = "MOUSEEVENTF_MIDDLEUP";
+					break;
+				default:
+					break;
+				}
+				if (action != null) {
+					sendSocketMessage(action);
+				}
+				return true;
+			}
+		});
+        
+        mTouchpaneLayout.setOnTouchListener(new OnTouchListener() {
+			float lastX;
+			float lastY;
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				String actionString = null;
 				switch (event.getAction()) {
 				case MotionEvent.ACTION_DOWN:
-					actionString = String.format("DOWN:(%f,%f)", event.getX(),event.getY());
+					//actionString = String.format("DOWN:(%f,%f)", event.getX(),event.getY());
+					lastX = event.getX();
+					lastY = event.getY();
 					break;
 				case MotionEvent.ACTION_MOVE:
-					actionString = String.format("MOVE:(%f,%f)", event.getX(),event.getY());
+					actionString = String.format("MOUSEEVENTF_MOVE %f %f", event.getX() - lastX,event.getY() - lastY);
+					lastX = event.getX();
+					lastY = event.getY();
+							
 					break;
 				case MotionEvent.ACTION_UP:
-					actionString = String.format("UP:(%f,%f)", event.getX(),event.getY());
+					//actionString = String.format("UP:(%f,%f)", event.getX(),event.getY());
 					break;
 
 				default:
 					break;
 				}
 				if (actionString!= null) {
-					mWriter.println(actionString);
-					mWriter.flush();
+					sendSocketMessage(actionString);
 				}
-				return false;
+				return true;
 			}
 		});
     }
@@ -109,7 +193,23 @@ public class TouchPadActivity extends Activity {
     		
     	}
     }
-
+    
+    public void sendSocketMessage(String message) {
+    	if (!mSocket.isConnected()) {
+			Toast.makeText(this, "connetion lost",Toast.LENGTH_SHORT).show();
+			mTouchpadLayout.setVisibility(View.GONE);
+			
+			mWriter.close();
+			try {
+				mSocket.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return;
+		}
+    	mWriter.println(message);
+    	mWriter.flush();
+    }
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
@@ -127,7 +227,22 @@ public class TouchPadActivity extends Activity {
 		if (mTouchpadLayout.getVisibility() == View.VISIBLE) {
 			stopConnection();
 			mTouchpadLayout.setVisibility(View.GONE);
+			return;
 		}
 		super.onBackPressed();
 	}
 }
+/*
+Command :
+MOUSEEVENTF_MOVE x y
+MOUSEEVENTF_LEFTDOWN
+MOUSEEVENTF_LEFTUP
+MOUSEEVENTF_RIGHTDOWN
+MOUSEEVENTF_RIGHTUP
+MOUSEEVENTF_MIDDLEDOWN
+MOUSEEVENTF_MIDDLEUP
+MOUSEEVENTF_WHEEL WHEEL_DELTA
+
+reference :
+http://msdn.microsoft.com/en-us/library/windows/desktop/ms646273(v=vs.85).aspx
+*/
