@@ -67,6 +67,7 @@ BEGIN_MESSAGE_MAP(CTrackPadDlg, CDialog)
 	//}}AFX_MSG_MAP
 	ON_BN_CLICKED(IDC_BUTTON_STARTSERVER, &CTrackPadDlg::OnBnClickedButtonStartserver)
 	ON_BN_CLICKED(IDC_BUTTON_STOP_SERVER, &CTrackPadDlg::OnBnClickedButtonStopServer)
+	ON_WM_TIMER()
 END_MESSAGE_MAP()
 
 
@@ -205,6 +206,9 @@ void CTrackPadDlg::OnSocketClose(void)
 void CTrackPadDlg::OnBnClickedButtonStartserver()
 {
 	UpdateData(TRUE);
+	// broadcast
+	m_broadcaster.Create(m_port+1,FD_WRITE,SOCK_DGRAM,INADDR_BROADCAST);
+	
 	m_sListener.Create(m_port); 
 	if(m_sListener.Listen()==FALSE)
 	{
@@ -305,4 +309,11 @@ void CTrackPadDlg::Tranlator(CString commandString)
 	}
 
 	//SendInput(1,&in,sizeof(in));
+}
+
+void CTrackPadDlg::OnTimer(UINT_PTR nIDEvent)
+{
+	// 
+
+	CDialog::OnTimer(nIDEvent);
 }

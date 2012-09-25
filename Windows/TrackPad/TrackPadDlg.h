@@ -38,6 +38,7 @@ public:
 private:
 	CCustomSocket m_sListener;
 	CCustomSocket m_sConnected;
+	CAsyncSocket m_broadcaster;
 	int m_port;
 public:
 	afx_msg void OnBnClickedButtonStartserver();
