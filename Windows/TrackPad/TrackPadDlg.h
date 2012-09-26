@@ -40,6 +40,7 @@ private:
 	CCustomSocket m_sConnected;
 	CAsyncSocket m_broadcaster;
 	int m_port;
+	int m_broadcastPort;
 public:
 	afx_msg void OnBnClickedButtonStartserver();
 	afx_msg void OnBnClickedButtonStopServer();
@@ -48,4 +49,5 @@ public:
 	CButton mBtnStopServer;
 	void Tranlator(CString command);
 	void OnSocketClose(void);
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
 };

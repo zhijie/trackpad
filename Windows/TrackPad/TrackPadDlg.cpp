@@ -103,7 +103,7 @@ BOOL CTrackPadDlg::OnInitDialog()
 	m_sListener.SetParentDlg(this); 
 	m_sConnected.SetParentDlg(this);
 	m_port = 20000;
-
+	m_broadcastPort = m_port +1;
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
@@ -162,6 +162,10 @@ void CTrackPadDlg::OnSocketAccept(void)
 	CString strIP;
 	UINT port;
 	if(m_sListener.Accept(m_sConnected)){
+		// stop broadcasting
+		KillTimer(1);
+		m_broadcaster.Close();
+
 		m_sConnected.GetSockName(strIP,port);
 		mInfoLabel.SetWindowTextW(_T("Client Connected,IP :")+ strIP);
 		UpdateData(FALSE);
@@ -207,8 +211,21 @@ void CTrackPadDlg::OnBnClickedButtonStartserver()
 {
 	UpdateData(TRUE);
 	// broadcast
-	m_broadcaster.Create(m_port+1,FD_WRITE,SOCK_DGRAM,INADDR_BROADCAST);
-	
+	if(m_broadcaster.Create(m_broadcastPort,FD_WRITE,SOCK_DGRAM) == FALSE){
+		CString message;
+		message.Format(_T("Unable to create broadcast socket,Error code : %d"),GetLastError());
+		AfxMessageBox(message);
+		return;	
+	}
+	BOOL bOptVal = true;
+	if(m_broadcaster.SetSockOpt(SO_BROADCAST,(void*)&bOptVal,sizeof(BOOL)) == SOCKET_ERROR) {
+		CString message;
+		message.Format(_T("Unable to setsockopt,Error code : %d"),GetLastError());
+		AfxMessageBox(message);
+		return;	
+	}
+	SetTimer(1, 200, 0);
+
 	m_sListener.Create(m_port); 
 	if(m_sListener.Listen()==FALSE)
 	{
@@ -224,6 +241,8 @@ void CTrackPadDlg::OnBnClickedButtonStartserver()
 
 void CTrackPadDlg::OnBnClickedButtonStopServer()
 {
+	KillTimer(1);
+	m_broadcaster.Close();
 	m_sConnected.Close(); 
 	m_sListener.Close(); 
 	mInfoLabel.SetWindowTextW(_T("Idle!!"));	
@@ -313,7 +332,25 @@ void CTrackPadDlg::Tranlator(CString commandString)
 
 void CTrackPadDlg::OnTimer(UINT_PTR nIDEvent)
 {
-	// 
+	CString test = _T("broadcasting...");
+	mInfoLabel.SetWindowTextW(test);	
+	// broadcast
+	IN_ADDR addr;
+	addr.S_un.S_addr = INADDR_BROADCAST;
+	CString ipaddr = CString(inet_ntoa(addr));
+	int ret = m_broadcaster.SendTo(test.GetBuffer(test.GetLength()),test.GetLength()+1,m_broadcastPort);
+	if(ret == SOCKET_ERROR){
+	
+		KillTimer(1);
 
+		CString message;
+		message.Format(_T("Unable to send broadcast message,Error code : %d"),GetLastError());
+		AfxMessageBox(message);
+		return;	
+	}else {
+		//CString message;
+		//message.Format(_T("broadcast message send: %d"),ret);
+		//AfxMessageBox(message);
+	}
 	CDialog::OnTimer(nIDEvent);
 }
