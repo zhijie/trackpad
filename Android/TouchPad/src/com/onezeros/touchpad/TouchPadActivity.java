@@ -4,11 +4,19 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.Inet4Address;
+import java.net.InetAddress;
 import java.net.Socket;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 
+import android.R.integer;
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.util.Printer;
 import android.view.MotionEvent;
@@ -25,6 +33,11 @@ import android.widget.Toast;
 
 public class TouchPadActivity extends Activity {
 	private static final String TAG = "lzhj"; 
+
+	public static final int MSG_BROADCAST_RECEIVED = 100;
+	final int mSocketPort = 20000;
+	final int mBroadcastPort = mSocketPort +1;
+	
 	RelativeLayout mTouchpadLayout;
     ImageView mMouseLeftImageView;
     ImageView mMouseRightImageView;
@@ -180,6 +193,48 @@ public class TouchPadActivity extends Activity {
 				return true;
 			}
 		});
+        
+        // broadcast listener
+        new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// Create a socket to listen on the port.
+				try {
+					DatagramSocket dsocket;
+					dsocket = new DatagramSocket(mBroadcastPort);
+					dsocket.setBroadcast(true);
+					// Create a buffer to read datagrams into. If a
+					// packet is larger than this buffer, the
+					// excess will simply be discarded!
+					byte[] buffer = new byte[2048];
+					
+					// Create a packet to receive data into the buffer
+					DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+					
+					// Now loop forever, waiting to receive packets and printing them.
+					while (true) {
+						Log.d(TAG, "ready to receive broadcast...");
+						// Wait to receive a datagram
+						dsocket.receive(packet);
+						// Convert the contents to a string, and display them
+						String msg = new String(buffer, 0, packet.getLength());
+						// Reset the length of the packet before reusing it.
+						packet.setLength(buffer.length);
+						
+						Log.d(TAG, "broadcast received : "+msg);
+					}
+				} catch (SocketException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+			}
+		}).start();
     }
     
     public void stopConnection() {
@@ -230,6 +285,22 @@ public class TouchPadActivity extends Activity {
 			return;
 		}
 		super.onBackPressed();
+	}
+	
+	class MessageHandler extends Handler{
+		
+		@Override
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case MSG_BROADCAST_RECEIVED:
+				
+				break;
+				
+			default:
+				break;
+			}
+		}
+		
 	}
 }
 /*
