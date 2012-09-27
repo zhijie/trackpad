@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello">Hello World, TouchPadActivity!</string>
     <string name="app_name">TouchPad</string>
-    <string name="server_ip">Server IP:</string>
-    <string name="server_port">Port:</string>
-    <string name="connect">Connect</string>
-    <string name="default_port">20000</string>
-    <string name="default_ip">192.168.9.70</string>
 </resources>

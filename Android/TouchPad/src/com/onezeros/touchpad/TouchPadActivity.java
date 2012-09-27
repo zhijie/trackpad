@@ -14,6 +14,9 @@ import java.net.UnknownHostException;
 
 import android.R.integer;
 import android.app.Activity;
+import android.content.Context;
+import android.net.wifi.WifiManager;
+import android.net.wifi.WifiManager.MulticastLock;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -38,63 +41,27 @@ public class TouchPadActivity extends Activity {
 	final int mSocketPort = 20000;
 	final int mBroadcastPort = mSocketPort +1;
 	
+	FrameLayout mProgressFrameLayout;
 	RelativeLayout mTouchpadLayout;
     ImageView mMouseLeftImageView;
     ImageView mMouseRightImageView;
     ImageView mMouseMiddleImageView;
     FrameLayout mTouchpaneLayout;
-    
-    
-    LinearLayout mSetupLayout;
-    EditText mServerIPEditText;
-    EditText mServerPortText;
-    Button mConnectButton;
-    
+            
     Socket mSocket;
     PrintWriter mWriter;
+    MessageHandler mMessageHandler = new MessageHandler();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        
+
+        mProgressFrameLayout = (FrameLayout)findViewById(R.id.connecting_fl);
         mTouchpadLayout = (RelativeLayout)findViewById(R.id.touchpad_layout);
         mMouseLeftImageView = (ImageView)findViewById(R.id.mouse_left);
         mMouseMiddleImageView = (ImageView)findViewById(R.id.mouse_middle_btn);
         mMouseRightImageView = (ImageView)findViewById(R.id.mouse_right);
         mTouchpaneLayout = (FrameLayout)findViewById(R.id.touch_panel);
-        
-        mSetupLayout = (LinearLayout)findViewById(R.id.setup_ll);
-        mServerIPEditText = (EditText)findViewById(R.id.serverip_et);
-        mServerPortText = (EditText)findViewById(R.id.port_et);
-        mConnectButton = (Button)findViewById(R.id.connect_bt);
-        
-        mConnectButton.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				try {
-					Log.d(TAG, "stub 1 ");
-					mSocket = new Socket(mServerIPEditText.getText().toString(), Integer.parseInt(mServerPortText.getText().toString()));
-					Log.d(TAG, "stub 2 ");
-					mWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(mSocket.getOutputStream())));
-					Log.d(TAG, "stub 3 ");
-					
-					if (mSocket.isConnected()) {						
-						mTouchpadLayout.setVisibility(View.VISIBLE);
-					}
-					Log.d(TAG,"mSocket.isConnected() = "+mSocket.isConnected());
-					
-				} catch (NumberFormatException e) {
-					e.printStackTrace();
-				} catch (UnknownHostException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				
-				
-			}
-		});
         
         mMouseLeftImageView.setOnTouchListener(new OnTouchListener() {
 			
@@ -201,29 +168,32 @@ public class TouchPadActivity extends Activity {
 			public void run() {
 				// Create a socket to listen on the port.
 				try {
-					DatagramSocket dsocket;
-					dsocket = new DatagramSocket(mBroadcastPort);
-					dsocket.setBroadcast(true);
-					// Create a buffer to read datagrams into. If a
-					// packet is larger than this buffer, the
-					// excess will simply be discarded!
+					WifiManager wifi;
+					wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+					MulticastLock ml = wifi.createMulticastLock("touchpad broadcast tag");
+					ml.acquire();
+					
+					DatagramSocket dsocket = new DatagramSocket(mBroadcastPort);
 					byte[] buffer = new byte[2048];
 					
 					// Create a packet to receive data into the buffer
 					DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
 					
-					// Now loop forever, waiting to receive packets and printing them.
-					while (true) {
-						Log.d(TAG, "ready to receive broadcast...");
-						// Wait to receive a datagram
+					//while (true) {
 						dsocket.receive(packet);
-						// Convert the contents to a string, and display them
 						String msg = new String(buffer, 0, packet.getLength());
 						// Reset the length of the packet before reusing it.
 						packet.setLength(buffer.length);
-						
+						Log.d(TAG, "server ip: "+packet.getAddress().toString());						
 						Log.d(TAG, "broadcast received : "+msg);
-					}
+					//}
+					String serverIpString = packet.getAddress().toString().substring(1);
+					
+					dsocket.close();
+					ml.release();
+					
+					Message message = mMessageHandler.obtainMessage(MSG_BROADCAST_RECEIVED, serverIpString);
+					mMessageHandler.sendMessage(message);
 				} catch (SocketException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -236,7 +206,28 @@ public class TouchPadActivity extends Activity {
 			}
 		}).start();
     }
-    
+    public void connect(String serverip) {
+		try {
+			
+			Log.d(TAG, "stub 1 ");			
+			mSocket = new Socket(serverip, mSocketPort);
+			Log.d(TAG, "stub 2 ");
+			mWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(mSocket.getOutputStream())));
+			Log.d(TAG, "stub 3 ");
+			
+			if (mSocket.isConnected()) {						
+				mProgressFrameLayout.setVisibility(View.GONE);
+			}
+			Log.d(TAG,"mSocket.isConnected() = "+mSocket.isConnected());
+			
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
     public void stopConnection() {
     	if(mSocket.isConnected()){
     		try {
@@ -279,11 +270,6 @@ public class TouchPadActivity extends Activity {
 
 	@Override
 	public void onBackPressed() {
-		if (mTouchpadLayout.getVisibility() == View.VISIBLE) {
-			stopConnection();
-			mTouchpadLayout.setVisibility(View.GONE);
-			return;
-		}
 		super.onBackPressed();
 	}
 	
@@ -293,7 +279,7 @@ public class TouchPadActivity extends Activity {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case MSG_BROADCAST_RECEIVED:
-				
+				connect((String)msg.obj);
 				break;
 				
 			default:
