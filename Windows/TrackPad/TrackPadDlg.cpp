@@ -67,8 +67,14 @@ BEGIN_MESSAGE_MAP(CTrackPadDlg, CDialog)
 	//}}AFX_MSG_MAP
 	ON_BN_CLICKED(IDC_BUTTON_STARTSERVER, &CTrackPadDlg::OnBnClickedButtonStartserver)
 	ON_BN_CLICKED(IDC_BUTTON_STOP_SERVER, &CTrackPadDlg::OnBnClickedButtonStopServer)
+	ON_MESSAGE(WM_SHOWTRAYBAR,&CTrackPadDlg::onResponseTraybar)
+	ON_MESSAGE(WM_CONNECT_SERVER,&CTrackPadDlg::ConnectServer)
+	ON_MESSAGE(WM_DISCONNECT_SERVER,&CTrackPadDlg::DisconnectServer)
 	ON_WM_TIMER()
 	ON_WM_CLOSE()
+	ON_WM_DESTROY()
+	ON_WM_SIZE()
+	ON_WM_NCPAINT()
 END_MESSAGE_MAP()
 
 
@@ -76,6 +82,7 @@ END_MESSAGE_MAP()
 
 BOOL CTrackPadDlg::OnInitDialog()
 {
+	//ShowWindow(SW_HIDE);
 	CDialog::OnInitDialog();
 
 	// Add "About..." menu item to system menu.
@@ -105,6 +112,20 @@ BOOL CTrackPadDlg::OnInitDialog()
 	m_sConnected.SetParentDlg(this);
 	m_port = 20000;
 	m_broadcastPort = m_port +1;
+
+	// init traybar data
+	m_traybarData.cbSize = (DWORD)sizeof(NOTIFYICONDATA); 
+	m_traybarData.hWnd = this->m_hWnd; 
+	m_traybarData.uID = IDR_MAINFRAME; 
+	m_traybarData.uFlags = NIF_ICON|NIF_MESSAGE|NIF_TIP ; 
+	m_traybarData.uCallbackMessage = WM_SHOWTRAYBAR;
+	m_traybarData.hIcon = LoadIcon(AfxGetInstanceHandle(),MAKEINTRESOURCE(IDR_MAINFRAME)); 
+	wcscpy(m_traybarData.szTip,_T("trackpad"));//当鼠标放在上面时，所显示的内容 
+	Shell_NotifyIcon(NIM_ADD,&m_traybarData);//在托盘区添加图标 
+
+	
+	// remove from task bar
+	ModifyStyleEx(WS_EX_APPWINDOW,WS_EX_TOOLWINDOW);
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
@@ -362,4 +383,67 @@ void CTrackPadDlg::OnClose()
 	m_sListener.Close(); 
 
 	CDialog::OnClose();
+}
+
+void CTrackPadDlg::OnDestroy()
+{
+	CDialog::OnDestroy();
+	Shell_NotifyIcon(NIM_DELETE,&m_traybarData);
+	
+}
+
+LRESULT  CTrackPadDlg::onResponseTraybar(WPARAM wParam,LPARAM lParam)
+{
+	if(wParam!=IDR_MAINFRAME){ 
+		return 1; 
+	}
+	switch(lParam) 
+	{ 
+	case WM_RBUTTONUP:
+	   {   
+		LPPOINT lpoint=new tagPOINT; 
+		::GetCursorPos(lpoint);
+		CMenu menu; 
+		menu.CreatePopupMenu();
+		if(true){
+			menu.AppendMenu(MF_STRING,WM_CONNECT_SERVER,_T("Connect")); 
+		}else {
+			menu.AppendMenu(MF_STRING,WM_DISCONNECT_SERVER,_T("Connect")); 
+		}
+		menu.AppendMenu(MF_STRING,WM_DESTROY,_T("Quit")); 
+
+		menu.TrackPopupMenu(TPM_LEFTALIGN,lpoint->x,lpoint->y,this); 
+		HMENU hmenu=menu.Detach(); 
+		menu.DestroyMenu(); 
+		delete lpoint; 
+	   } 
+	   break; 
+	case WM_LBUTTONDBLCLK:
+	   break; 
+	} 
+	return 0; 
+}
+
+LRESULT  CTrackPadDlg::ConnectServer(WPARAM wParam,LPARAM lParam)
+{
+	OnBnClickedButtonStartserver();
+	return 0;
+}
+
+LRESULT  CTrackPadDlg::DisconnectServer(WPARAM wParam,LPARAM lParam)
+{
+	OnBnClickedButtonStopServer();
+	return 0;
+}
+
+void CTrackPadDlg::OnSize(UINT nType, int cx, int cy)
+{
+	CDialog::OnSize(nType, cx, cy);
+
+	ShowWindow(SW_HIDE);
+}
+
+void CTrackPadDlg::OnNcPaint()
+{
+	ShowWindow(SW_HIDE);
 }

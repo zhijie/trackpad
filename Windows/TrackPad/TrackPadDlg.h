@@ -6,6 +6,11 @@
 #include "customsocket.h"
 #include "afxwin.h"
 
+#define WM_SHOWTRAYBAR WM_USER+100
+#define WM_CONNECT_SERVER WM_USER+101
+#define WM_DISCONNECT_SERVER WM_USER+102
+
+
 // CTrackPadDlg dialog
 class CTrackPadDlg : public CDialog
 {
@@ -29,6 +34,10 @@ protected:
 	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
+	afx_msg LRESULT onResponseTraybar(WPARAM wParam,LPARAM lParam);
+	afx_msg LRESULT ConnectServer(WPARAM wParam,LPARAM lParam);
+	afx_msg LRESULT DisconnectServer(WPARAM wParam,LPARAM lParam);
+	afx_msg void OnNcPaint();
 	DECLARE_MESSAGE_MAP()
 public:
 	void OnSocketAccept(void);
@@ -41,6 +50,8 @@ private:
 	CAsyncSocket m_broadcaster;
 	int m_port;
 	int m_broadcastPort;
+
+	NOTIFYICONDATA m_traybarData;
 public:
 	afx_msg void OnBnClickedButtonStartserver();
 	afx_msg void OnBnClickedButtonStopServer();
@@ -51,4 +62,6 @@ public:
 	void OnSocketClose(void);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnClose();
+	afx_msg void OnDestroy();
+	afx_msg void OnSize(UINT nType, int cx, int cy);
 };
