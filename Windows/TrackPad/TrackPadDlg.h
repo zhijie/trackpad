@@ -50,4 +50,5 @@ public:
 	void Tranlator(CString command);
 	void OnSocketClose(void);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
+	afx_msg void OnClose();
 };

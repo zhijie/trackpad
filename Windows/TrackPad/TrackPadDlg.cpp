@@ -68,6 +68,7 @@ BEGIN_MESSAGE_MAP(CTrackPadDlg, CDialog)
 	ON_BN_CLICKED(IDC_BUTTON_STARTSERVER, &CTrackPadDlg::OnBnClickedButtonStartserver)
 	ON_BN_CLICKED(IDC_BUTTON_STOP_SERVER, &CTrackPadDlg::OnBnClickedButtonStopServer)
 	ON_WM_TIMER()
+	ON_WM_CLOSE()
 END_MESSAGE_MAP()
 
 
@@ -229,9 +230,11 @@ void CTrackPadDlg::OnBnClickedButtonStartserver()
 	m_sListener.Create(m_port); 
 	if(m_sListener.Listen()==FALSE)
 	{
-		AfxMessageBox(_T("Unable to Listen on that port,please try another port"));
+		CString message;
+		message.Format(_T("Unable to m_sListener.Listen,Error code : %d"),GetLastError());
+		AfxMessageBox(message);
 		m_sListener.Close(); 
-		return;			
+		return;
 	}
 	mInfoLabel.SetWindowTextW(_T("Listening For Connections!!!"));
 	UpdateData(FALSE);
@@ -347,10 +350,16 @@ void CTrackPadDlg::OnTimer(UINT_PTR nIDEvent)
 		message.Format(_T("Unable to send broadcast message,Error code : %d"),GetLastError());
 		AfxMessageBox(message);
 		return;	
-	}else {
-		//CString message;
-		//message.Format(_T("broadcast message send: %d"),ret);
-		//AfxMessageBox(message);
 	}
 	CDialog::OnTimer(nIDEvent);
+}
+
+void CTrackPadDlg::OnClose()
+{
+	KillTimer(1);
+	m_broadcaster.Close();
+	m_sConnected.Close(); 
+	m_sListener.Close(); 
+
+	CDialog::OnClose();
 }
