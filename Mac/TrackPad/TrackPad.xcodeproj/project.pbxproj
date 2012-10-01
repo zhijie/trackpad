@@ -13,6 +13,8 @@
 		D5AD04AE160F7FD600334DDC /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = D5AD04AC160F7FD600334DDC /* Credits.rtf */; };
 		D5AD04B1160F7FD600334DDC /* OZLAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D5AD04B0160F7FD600334DDC /* OZLAppDelegate.m */; };
 		D5AD04B4160F7FD600334DDC /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5AD04B2160F7FD600334DDC /* MainMenu.xib */; };
+		D5C544B81619422100522508 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C544B51619422100522508 /* AsyncSocket.m */; };
+		D5C544B91619422100522508 /* AsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C544B71619422100522508 /* AsyncUdpSocket.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +31,10 @@
 		D5AD04AF160F7FD600334DDC /* OZLAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OZLAppDelegate.h; sourceTree = "<group>"; };
 		D5AD04B0160F7FD600334DDC /* OZLAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OZLAppDelegate.m; sourceTree = "<group>"; };
 		D5AD04B3160F7FD600334DDC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		D5C544B41619422100522508 /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncSocket.h; sourceTree = "<group>"; };
+		D5C544B51619422100522508 /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncSocket.m; sourceTree = "<group>"; };
+		D5C544B61619422100522508 /* AsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncUdpSocket.h; sourceTree = "<group>"; };
+		D5C544B71619422100522508 /* AsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncUdpSocket.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +88,10 @@
 		D5AD04A3160F7FD600334DDC /* TrackPad */ = {
 			isa = PBXGroup;
 			children = (
+				D5C544B41619422100522508 /* AsyncSocket.h */,
+				D5C544B51619422100522508 /* AsyncSocket.m */,
+				D5C544B61619422100522508 /* AsyncUdpSocket.h */,
+				D5C544B71619422100522508 /* AsyncUdpSocket.m */,
 				D5AD04AF160F7FD600334DDC /* OZLAppDelegate.h */,
 				D5AD04B0160F7FD600334DDC /* OZLAppDelegate.m */,
 				D5AD04B2160F7FD600334DDC /* MainMenu.xib */,
@@ -169,6 +179,8 @@
 			files = (
 				D5AD04AA160F7FD600334DDC /* main.m in Sources */,
 				D5AD04B1160F7FD600334DDC /* OZLAppDelegate.m in Sources */,
+				D5C544B81619422100522508 /* AsyncSocket.m in Sources */,
+				D5C544B91619422100522508 /* AsyncUdpSocket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,6 +306,7 @@
 				D5AD04B9160F7FD600334DDC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

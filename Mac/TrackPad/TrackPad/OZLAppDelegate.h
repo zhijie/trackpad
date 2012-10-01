@@ -8,11 +8,18 @@
 
 #import <Cocoa/Cocoa.h>
 #import <CoreFoundation/CoreFoundation.h>
+#import "AsyncSocket.h"
+#import "AsyncUdpSocket.h"
 
-
-@interface OZLAppDelegate : NSObject <NSApplicationDelegate> {
-    @private
-    CFSocketRef mSocket;
+@interface OZLAppDelegate : NSObject <NSApplicationDelegate>
+{
+    int mTcpPort ;
+    int mBroadcastPort;
+    long tag;
+	AsyncUdpSocket *udpSocket;
+    AsyncSocket* tcpListenSocket;
+    AsyncSocket* tcpConnectionSocket;
+    NSTimer* mUdpTimer;
 }
 
 @property (assign) IBOutlet NSWindow *window;
@@ -22,8 +29,7 @@
 - (IBAction)onStartSever:(id)sender;
 - (IBAction)onStopServer:(id)sender;
 
-- (void) onSocketAccept:(void*)data;
-- (void) onSocketConnect:(void*)data;
-- (void) onSocketReceive:(void*)data;
 
+- (void) onBroadcastTimer:(NSTimer*)theTimer;
+- (void) translator:(NSString*) commandString;
 @end
