@@ -8,19 +8,16 @@
 
 #import "OZLAppDelegate.h"
 
-#import "OZLViewController.h"
+#import "OZLTouchpadViewController.h"
 
 @implementation OZLAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        self.viewController = [[OZLViewController alloc] initWithNibName:@"OZLViewController_iPhone" bundle:nil];
-    } else {
-        self.viewController = [[OZLViewController alloc] initWithNibName:@"OZLViewController_iPad" bundle:nil];
-    }
+    
+    self.viewController = [[OZLTouchpadViewController alloc] initWithNibName:@"OZLTouchpadViewController" bundle:nil];
+
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
     return YES;

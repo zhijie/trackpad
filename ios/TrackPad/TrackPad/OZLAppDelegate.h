@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OZLTouchpadViewController.h"
 
 @class OZLViewController;
 
@@ -14,6 +15,6 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (strong, nonatomic) OZLViewController *viewController;
+@property (strong, nonatomic) OZLTouchpadViewController *viewController;
 
 @end
