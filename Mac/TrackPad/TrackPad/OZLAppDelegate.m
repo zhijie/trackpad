@@ -30,6 +30,8 @@
     
     mTcpPort = 20000;
     mBroadcastPort = mTcpPort +1;
+    
+    [self activateStatusMenu];
 }
 
 - (void) onBroadcastTimer:(NSTimer*)theTimer
@@ -253,5 +255,30 @@
         CGEventPost(kCGHIDEventTap, event);
         CFRelease(event);
     }
+}
+- (void) quitApp :(id)sender
+{
+    [NSApp terminate:nil];
+}
+- (void)activateStatusMenu
+{
+    NSStatusBar *bar = [NSStatusBar systemStatusBar];
+    
+    statusbarItem = [bar statusItemWithLength:NSVariableStatusItemLength];
+    
+    [statusbarItem setTitle: NSLocalizedString(@"TrackPad",@"")];
+    [statusbarItem setHighlightMode:YES];
+    
+    NSMenu* statusmenu = [[NSMenu alloc] initWithTitle:@"menu"];
+    NSMenuItem* quitItem = [[NSMenuItem alloc] initWithTitle:@"quite" action:@selector(quitApp:) keyEquivalent:@""];
+    NSMenuItem* startServerItem = [[NSMenuItem alloc] initWithTitle:@"Start Server" action:@selector(onStartSever:) keyEquivalent:@""];
+    NSMenuItem* stopServerItem = [[NSMenuItem alloc] initWithTitle:@"Stop Server" action:@selector(onStopServer:) keyEquivalent:@""];
+    [startServerItem setTarget:self];
+    [stopServerItem setTarget:self];
+    [quitItem setTarget:self];
+    [statusmenu addItem:startServerItem];
+    [statusmenu addItem:stopServerItem];
+    [statusmenu addItem:quitItem];
+    [statusbarItem setMenu:statusmenu];
 }
 @end

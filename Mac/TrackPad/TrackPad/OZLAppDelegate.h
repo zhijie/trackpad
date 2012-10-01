@@ -20,6 +20,8 @@
     AsyncSocket* tcpListenSocket;
     AsyncSocket* tcpConnectionSocket;
     NSTimer* mUdpTimer;
+    
+    NSStatusItem* statusbarItem;
 }
 
 @property (assign) IBOutlet NSWindow *window;
@@ -32,4 +34,5 @@
 
 - (void) onBroadcastTimer:(NSTimer*)theTimer;
 - (void) translator:(NSString*) commandString;
+- (void)activateStatusMenu;
 @end
