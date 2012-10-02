@@ -75,7 +75,6 @@
 		D5B3878A160B74BE00DF8A97 = {
 			isa = PBXGroup;
 			children = (
-				D5C544D31619E09200522508 /* CFNetwork.framework */,
 				D5B3879F160B74BE00DF8A97 /* TrackPad */,
 				D5B38798160B74BE00DF8A97 /* Frameworks */,
 				D5B38796160B74BE00DF8A97 /* Products */,
@@ -93,6 +92,7 @@
 		D5B38798160B74BE00DF8A97 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D5C544D31619E09200522508 /* CFNetwork.framework */,
 				D5B38799160B74BE00DF8A97 /* UIKit.framework */,
 				D5B3879B160B74BE00DF8A97 /* Foundation.framework */,
 				D5B3879D160B74BE00DF8A97 /* CoreGraphics.framework */,

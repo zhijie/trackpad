@@ -175,6 +175,22 @@
 					<int key="connectionID">3</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">mPanelView</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="583150916"/>
+					</object>
+					<int key="connectionID">37</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">mMiddleButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="437428599"/>
+					</object>
+					<int key="connectionID">38</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">leftBtnDown:</string>
 						<reference key="source" ref="776094781"/>
@@ -230,75 +246,57 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">middleBtnDown:</string>
-						<reference key="source" ref="437428599"/>
-						<reference key="destination" ref="372490531"/>
-						<int key="IBEventType">1</int>
-					</object>
-					<int key="connectionID">22</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">middleBtnUp:</string>
-						<reference key="source" ref="437428599"/>
-						<reference key="destination" ref="372490531"/>
-						<int key="IBEventType">7</int>
-					</object>
-					<int key="connectionID">23</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">middleBtnUp:</string>
-						<reference key="source" ref="437428599"/>
-						<reference key="destination" ref="372490531"/>
-						<int key="IBEventType">8</int>
-					</object>
-					<int key="connectionID">24</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">middleBtnMove:</string>
+						<string key="label">middleBtnMove:forEvent:</string>
 						<reference key="source" ref="437428599"/>
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">3</int>
 					</object>
-					<int key="connectionID">25</int>
+					<int key="connectionID">36</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">panelTouchDown:</string>
+						<string key="label">middleBtnUp:forEvent:</string>
+						<reference key="source" ref="437428599"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">42</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">middleBtnDown:forEvent:</string>
+						<reference key="source" ref="437428599"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">1</int>
+					</object>
+					<int key="connectionID">43</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">panelTouchDown:forEvent:</string>
 						<reference key="source" ref="583150916"/>
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">1</int>
 					</object>
-					<int key="connectionID">29</int>
+					<int key="connectionID">39</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">panelTouchUp:</string>
+						<string key="label">panelTouchUp:forEvent:</string>
 						<reference key="source" ref="583150916"/>
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">7</int>
 					</object>
-					<int key="connectionID">30</int>
+					<int key="connectionID">40</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">panelTouchUp:</string>
-						<reference key="source" ref="583150916"/>
-						<reference key="destination" ref="372490531"/>
-						<int key="IBEventType">8</int>
-					</object>
-					<int key="connectionID">31</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">panelTouchMove:</string>
+						<string key="label">panelMove:forEvent:</string>
 						<reference key="source" ref="583150916"/>
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">3</int>
 					</object>
-					<int key="connectionID">32</int>
+					<int key="connectionID">41</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -374,7 +372,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">33</int>
+			<int key="maxID">43</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -385,11 +383,17 @@
 						<string key="leftBtnDown:">id</string>
 						<string key="leftBtnUp:">id</string>
 						<string key="middleBtnDown:">id</string>
+						<string key="middleBtnDown:forEvent:">id</string>
 						<string key="middleBtnMove:">id</string>
+						<string key="middleBtnMove:forEvent:">id</string>
 						<string key="middleBtnUp:">id</string>
+						<string key="middleBtnUp:forEvent:">id</string>
+						<string key="panelMove:forEvent:">id</string>
 						<string key="panelTouchDown:">id</string>
+						<string key="panelTouchDown:forEvent:">id</string>
 						<string key="panelTouchMove:">id</string>
 						<string key="panelTouchUp:">id</string>
+						<string key="panelTouchUp:forEvent:">id</string>
 						<string key="rightBtnDown:">id</string>
 						<string key="rightBtnUp:">id</string>
 					</dictionary>
@@ -406,16 +410,36 @@
 							<string key="name">middleBtnDown:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="middleBtnDown:forEvent:">
+							<string key="name">middleBtnDown:forEvent:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="middleBtnMove:">
 							<string key="name">middleBtnMove:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="middleBtnMove:forEvent:">
+							<string key="name">middleBtnMove:forEvent:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="middleBtnUp:">
 							<string key="name">middleBtnUp:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="middleBtnUp:forEvent:">
+							<string key="name">middleBtnUp:forEvent:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="panelMove:forEvent:">
+							<string key="name">panelMove:forEvent:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="panelTouchDown:">
 							<string key="name">panelTouchDown:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="panelTouchDown:forEvent:">
+							<string key="name">panelTouchDown:forEvent:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="panelTouchMove:">
@@ -426,6 +450,10 @@
 							<string key="name">panelTouchUp:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="panelTouchUp:forEvent:">
+							<string key="name">panelTouchUp:forEvent:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="rightBtnDown:">
 							<string key="name">rightBtnDown:</string>
 							<string key="candidateClassName">id</string>
@@ -433,6 +461,20 @@
 						<object class="IBActionInfo" key="rightBtnUp:">
 							<string key="name">rightBtnUp:</string>
 							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="mMiddleButton">UIButton</string>
+						<string key="mPanelView">UIButton</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="mMiddleButton">
+							<string key="name">mMiddleButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="mPanelView">
+							<string key="name">mPanelView</string>
+							<string key="candidateClassName">UIButton</string>
 						</object>
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">

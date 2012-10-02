@@ -15,6 +15,8 @@
 @end
 
 @implementation OZLTouchpadViewController
+@synthesize mPanelView;
+@synthesize mMiddleButton;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -49,6 +51,8 @@
 
 - (void)viewDidUnload
 {
+    [self setMPanelView:nil];
+    [self setMMiddleButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -84,20 +88,28 @@
     [self sendMessage:msg];
 }
 
-- (IBAction)middleBtnDown:(id)sender {
+- (IBAction)middleBtnDown:(id)sender forEvent:(UIEvent *)event {
     NSString* msg = @"MOUSEEVENTF_MIDDLEDOWN";
     [self sendMessage:msg];
+    
+    CGPoint point = [[[event allTouches] anyObject] locationInView:mMiddleButton];
+    mLastPoint = point;
 }
 
-- (IBAction)middleBtnUp:(id)sender {
+- (IBAction)middleBtnUp:(id)sender forEvent:(UIEvent *)event {
     NSString* msg = @"MOUSEEVENTF_MIDDLEUP";
     [self sendMessage:msg];
 }
 
-- (IBAction)middleBtnMove:(id)sender {
-    NSString* msg = @"MOUSEEVENTF_WHEEL";
+- (IBAction)middleBtnMove:(id)sender forEvent:(UIEvent *)event {
+    CGPoint point = [[[event allTouches] anyObject] locationInView:mMiddleButton];
+    float offsety = point.y - mLastPoint.y;
+    NSString* msg = [NSString stringWithFormat:@"MOUSEEVENTF_WHEEL %f ",offsety/120];
     [self sendMessage:msg];
+    
+    mLastPoint = point;
 }
+
 
 - (IBAction)rightBtnDown:(id)sender {
     NSString* msg = @"MOUSEEVENTF_RIGHTDOWN";
@@ -109,24 +121,29 @@
     [self sendMessage:msg];
 }
 
-- (IBAction)panelTouchDown:(id)sender {
+- (IBAction)panelTouchDown:(id)sender forEvent:(UIEvent *)event {
+    CGPoint point = [[[event allTouches] anyObject] locationInView:mPanelView];
+    mLastPoint = point;
+}
+
+- (IBAction)panelTouchUp:(id)sender forEvent:(UIEvent *)event {
 
 }
 
-- (IBAction)panelTouchUp:(id)sender {
-
+- (IBAction)panelMove:(id)sender forEvent:(UIEvent *)event {
+    CGPoint point = [[[event allTouches] anyObject] locationInView:mPanelView];
+    float offsetx = point.x - mLastPoint.x;
+    float offsety = point.y - mLastPoint.y;
+    NSString* msg = [NSString stringWithFormat:@"MOUSEEVENTF_MOVE %f %f",offsetx,offsety];
+    [self sendMessage:msg];
+    
+    mLastPoint = point;
 }
 
-- (IBAction)panelTouchMove:(id)sender {
-    //UITouch* touch =
-    NSString* msg = @"MOUSEEVENTF_MOVE %f %f";
-    [self sendMessage:[NSString stringWithFormat:msg]];
-}
 
 - (void) sendMessage:(NSString*) msg
 {
-    NSString* message = [NSString stringWithFormat:@"%@\r\n",msg];
-    NSData* data = [message dataUsingEncoding:NSUTF8StringEncoding];
+    NSData* data = [msg dataUsingEncoding:NSUTF8StringEncoding];
     [mTcpSocket writeData:data withTimeout:-1 tag:1];
 }
 
@@ -185,7 +202,7 @@
 }
 
 - (void)onSocket:(AsyncSocket *)sock didWriteDataWithTag:(long)tag {
-	NSLog(@"onSocket:didWriteDataWithTag:%i", tag);
+	NSLog(@"onSocket:didWriteDataWithTag:%ld", tag);
 }
 
 @end
