@@ -15,6 +15,8 @@ import java.net.UnknownHostException;
 import android.R.integer;
 import android.app.Activity;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiManager.MulticastLock;
 import android.os.Bundle;
@@ -38,6 +40,7 @@ public class TouchPadActivity extends Activity {
 	private static final String TAG = "lzhj"; 
 
 	public static final int MSG_BROADCAST_RECEIVED = 100;
+	public static final int MSG_WIFI_DISCONNECT = 101;
 	final int mSocketPort = 20000;
 	final int mBroadcastPort = mSocketPort +1;
 	
@@ -51,10 +54,12 @@ public class TouchPadActivity extends Activity {
     Socket mSocket;
     PrintWriter mWriter;
     MessageHandler mMessageHandler = new MessageHandler();
+    Context mContext;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        mContext = this;
 
         mProgressFrameLayout = (FrameLayout)findViewById(R.id.connecting_fl);
         mTouchpadLayout = (RelativeLayout)findViewById(R.id.touchpad_layout);
@@ -168,6 +173,14 @@ public class TouchPadActivity extends Activity {
 			public void run() {
 				// Create a socket to listen on the port.
 				try {
+					ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+					NetworkInfo wifiInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+
+					if (!wifiInfo.isConnected()) {
+					    mMessageHandler.sendEmptyMessage(MSG_WIFI_DISCONNECT);
+					    return;
+					}
+					
 					WifiManager wifi;
 					wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
 					MulticastLock ml = wifi.createMulticastLock("touchpad broadcast tag");
@@ -281,7 +294,9 @@ public class TouchPadActivity extends Activity {
 			case MSG_BROADCAST_RECEIVED:
 				connect((String)msg.obj);
 				break;
-				
+			case MSG_WIFI_DISCONNECT:
+				Toast.makeText(mContext, R.string.wifi_error, Toast.LENGTH_LONG).show();
+				break;
 			default:
 				break;
 			}

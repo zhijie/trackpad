@@ -2,4 +2,5 @@
 <resources>
 
     <string name="app_name">TouchPad</string>
+    <string name="wifi_error">Wifi connection is needed for this program to run. Please check your wifi connection.</string>
 </resources>
