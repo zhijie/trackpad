@@ -31,6 +31,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    // wifi connection check
+    [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(reachabilityChanged:) name: kReachabilityChangedNotification object: nil];
+    mWifiReachability = [Reachability reachabilityForLocalWiFi] ;
+	[mWifiReachability startNotifier];
+	[self updateInterfaceWithReachability: mWifiReachability];
+    
     // Do any additional setup after loading the view from its nib.
     mUdpSocket = [[AsyncUdpSocket alloc] initWithDelegate:self];
     mTcpPort = 20000;
@@ -203,6 +209,47 @@
 
 - (void)onSocket:(AsyncSocket *)sock didWriteDataWithTag:(long)tag {
 	NSLog(@"onSocket:didWriteDataWithTag:%ld", tag);
+}
+
+
+//Called by Reachability whenever status changes.
+- (void) reachabilityChanged: (NSNotification* )note
+{
+	Reachability* curReach = [note object];
+	NSParameterAssert([curReach isKindOfClass: [Reachability class]]);
+	[self updateInterfaceWithReachability: curReach];
+}
+
+- (void) updateInterfaceWithReachability: (Reachability*) curReach
+{
+    NetworkStatus netStatus = [curReach currentReachabilityStatus];
+    NSString* statusString= @"";
+    switch (netStatus)
+    {
+        case NotReachable:
+        {
+            UIAlertView *alert = [[UIAlertView alloc]
+                                  initWithTitle: @"WIFI Required"
+                                  message: @"WIFI connection is necessory, Please make sure your WIFI is open. Please press HOME button to quit"
+                                  delegate: nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+            [alert show];
+            
+            break;
+        }
+            
+        case ReachableViaWWAN:
+        {
+            break;
+        }
+        case ReachableViaWiFi:
+        {
+            statusString= @"Reachable WiFi";
+            break;
+        }
+    }
+
 }
 
 @end

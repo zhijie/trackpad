@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "AsyncSocket.h"
 #import "AsyncUdpSocket.h"
+#import "Reachability.h"
 
 @interface OZLTouchpadViewController : UIViewController
 {
@@ -18,6 +19,8 @@
     int mTcpPort;
     
     CGPoint mLastPoint;
+    
+    Reachability* mWifiReachability;
 }
 @property (strong, nonatomic) IBOutlet UIButton *mPanelView;
 @property (strong, nonatomic) IBOutlet UIButton *mMiddleButton;
@@ -34,4 +37,6 @@
 - (IBAction)panelMove:(id)sender forEvent:(UIEvent *)event;
 
 - (void) sendMessage:(NSString*)msg;
+- (void) reachabilityChanged: (NSNotification* )note;
+- (void) updateInterfaceWithReachability: (Reachability*) curReach;
 @end
