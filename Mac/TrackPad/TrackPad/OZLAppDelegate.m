@@ -15,10 +15,10 @@
 #import <CFNetwork/CFSocketStream.h>
 #import <CFNetwork/CFNetwork.h>
 
-#define READ_TIMEOUT 15.0
+#define READ_TIMEOUT -1
 #define READ_TIMEOUT_EXTENSION 10.0
 
-#define TCP_PORT 20000
+#define TCP_PORT 20015
 
 @implementation OZLAppDelegate
 @synthesize mInfoTextField;
@@ -31,10 +31,21 @@
     
     mTcpPort = TCP_PORT;
     mBroadcastPort = mTcpPort +1;
-    tcpConnectionSockets = [[NSMutableArray alloc] init];
     
     [self activateStatusMenu];
 }
+
+-(void) applicationWillTerminate:(NSNotification *)notification
+{
+    [self quitApp:nil];
+}
+
+- (void) quitApp :(id)sender
+{
+    [self onStopServer:nil];
+    [NSApp terminate:nil];
+}
+
 
 - (void) onBroadcastTimer:(NSTimer*)theTimer
 {
@@ -46,6 +57,7 @@
 }
 
 - (IBAction)onStartSever:(id)sender {
+    tcpConnectionSockets = [[NSMutableArray alloc] init];
     
     //broadcast && timer to build connection
     udpSocket = [[AsyncUdpSocket alloc] initWithDelegate:self];
@@ -61,7 +73,7 @@
 	//[udpSocket receiveWithTimeout:-1 tag:0];
 
     [mUdpTimer invalidate];
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.3
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1
                                                       target:self selector:@selector(onBroadcastTimer:)
                                                     userInfo:nil repeats:YES];
     mUdpTimer = timer;
@@ -79,10 +91,13 @@
 - (IBAction)onStopServer:(id)sender {
     [mUdpTimer invalidate];
     [udpSocket close];
+    udpSocket = nil;
     [tcpListenSocket disconnect];
+    tcpConnectionSockets = nil;
     for (AsyncSocket* socket in tcpConnectionSockets) {
         [socket disconnect];
     }
+    tcpConnectionSockets = nil;
 }
 
 - (void)onUdpSocket:(AsyncUdpSocket *)sock didSendDataWithTag:(long)tag
@@ -119,8 +134,6 @@
 {
     NSLog(@"didAcceptNewSocket with ip:%@:%hu",[newSocket connectedHost],[newSocket connectedPort]);
     [tcpConnectionSockets addObject: newSocket];
-    [mUdpTimer invalidate];
-    [udpSocket close];
 }
 
 - (void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
@@ -258,10 +271,6 @@
     }
 }
 
-- (void) quitApp :(id)sender
-{
-    [NSApp terminate:nil];
-}
 - (void)activateStatusMenu
 {
     NSStatusBar *bar = [NSStatusBar systemStatusBar];
