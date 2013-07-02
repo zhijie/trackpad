@@ -15,9 +15,10 @@
 #import <CFNetwork/CFSocketStream.h>
 #import <CFNetwork/CFNetwork.h>
 
-#define FORMAT(format, ...) [NSString stringWithFormat:(format), ##__VA_ARGS__]
 #define READ_TIMEOUT 15.0
 #define READ_TIMEOUT_EXTENSION 10.0
+
+#define TCP_PORT 20000
 
 @implementation OZLAppDelegate
 @synthesize mInfoTextField;
@@ -28,16 +29,16 @@
 {
     // Insert code here to initialize your application
     
-    mTcpPort = 20000;
+    mTcpPort = TCP_PORT;
     mBroadcastPort = mTcpPort +1;
+    tcpConnectionSockets = [[NSMutableArray alloc] init];
     
     [self activateStatusMenu];
 }
 
 - (void) onBroadcastTimer:(NSTimer*)theTimer
 {
-    [udpSocket enableBroadcast:YES error:nil];
-    NSString* msg = @"testing";
+    NSString* msg = @"broadcasting";
 	NSData *data = [msg dataUsingEncoding:NSUTF8StringEncoding];
 	[udpSocket sendData:data toHost:@"255.255.255.255" port:mBroadcastPort withTimeout:-1 tag:tag++];
     NSLog(@"sending with msg:%@ with :%ld",msg,tag);
@@ -51,14 +52,13 @@
 	[udpSocket enableBroadcast:YES error:nil];
 	NSError *error = nil;
 	
-	if (![udpSocket bindToAddress:@"0.0.0.0" port:20003 error:&error])
+	if (![udpSocket bindToAddress:@"0.0.0.0" port:mBroadcastPort error:&error])
 	{
 		NSLog(@"Error binding: %@", error);
 		return;
 	}
 	
-	[udpSocket receiveWithTimeout:-1 tag:0];
-    
+	//[udpSocket receiveWithTimeout:-1 tag:0];
 
     [mUdpTimer invalidate];
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.3
@@ -70,7 +70,7 @@
     tcpListenSocket = [[AsyncSocket alloc] initWithDelegate:self];
     if(![tcpListenSocket acceptOnPort:mTcpPort error:&error])
     {
-        NSLog(FORMAT(@"Error starting server: %@", error));
+        NSLog(@"Error starting server: %@", error.description);
         return;
     }
 
@@ -80,10 +80,10 @@
     [mUdpTimer invalidate];
     [udpSocket close];
     [tcpListenSocket disconnect];
-    [tcpConnectionSocket disconnect];
+    for (AsyncSocket* socket in tcpConnectionSockets) {
+        [socket disconnect];
+    }
 }
-
-
 
 - (void)onUdpSocket:(AsyncUdpSocket *)sock didSendDataWithTag:(long)tag
 {
@@ -104,11 +104,11 @@
 	NSString *msg = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 	if (msg)
 	{
-		NSLog(FORMAT(@"RECV: %@", msg));
+		NSLog(@"RECV: %@", msg);
 	}
 	else
 	{
-		NSLog(FORMAT(@"RECV: Unknown message from: %@:%hu", host, port));
+		NSLog(@"RECV: Unknown message from: %@:%hu", host, port);
 	}
 	
 	[udpSocket receiveWithTimeout:-1 tag:0];
@@ -118,7 +118,7 @@
 - (void)onSocket:(AsyncSocket *)sock didAcceptNewSocket:(AsyncSocket *)newSocket
 {
     NSLog(@"didAcceptNewSocket with ip:%@:%hu",[newSocket connectedHost],[newSocket connectedPort]);
-    tcpConnectionSocket = newSocket;
+    [tcpConnectionSockets addObject: newSocket];
     [mUdpTimer invalidate];
     [udpSocket close];
 }
@@ -182,12 +182,13 @@
 
 - (void)onSocket:(AsyncSocket *)sock willDisconnectWithError:(NSError *)err
 {
-	NSLog(FORMAT(@"Client Disconnected: %@:%hu", [sock connectedHost], [sock connectedPort]));
+	NSLog(@"Client Disconnected: %@:%hu", [sock connectedHost], [sock connectedPort]);
 }
 
 - (void)onSocketDidDisconnect:(AsyncSocket *)sock
 {
 	NSLog(@"disconnect===");
+    [tcpConnectionSockets removeObject:sock];
 }
 
 /*
@@ -256,6 +257,7 @@
         CFRelease(event);
     }
 }
+
 - (void) quitApp :(id)sender
 {
     [NSApp terminate:nil];
