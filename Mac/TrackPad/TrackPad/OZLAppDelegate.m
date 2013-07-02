@@ -15,9 +15,10 @@
 #import <CFNetwork/CFSocketStream.h>
 #import <CFNetwork/CFNetwork.h>
 
-#define FORMAT(format, ...) [NSString stringWithFormat:(format), ##__VA_ARGS__]
-#define READ_TIMEOUT 15.0
+#define READ_TIMEOUT -1
 #define READ_TIMEOUT_EXTENSION 10.0
+
+#define TCP_PORT 20015
 
 @implementation OZLAppDelegate
 @synthesize mInfoTextField;
@@ -28,16 +29,27 @@
 {
     // Insert code here to initialize your application
     
-    mTcpPort = 20000;
+    mTcpPort = TCP_PORT;
     mBroadcastPort = mTcpPort +1;
     
     [self activateStatusMenu];
 }
 
+-(void) applicationWillTerminate:(NSNotification *)notification
+{
+    [self quitApp:nil];
+}
+
+- (void) quitApp :(id)sender
+{
+    [self onStopServer:nil];
+    [NSApp terminate:nil];
+}
+
+
 - (void) onBroadcastTimer:(NSTimer*)theTimer
 {
-    [udpSocket enableBroadcast:YES error:nil];
-    NSString* msg = @"testing";
+    NSString* msg = @"broadcasting";
 	NSData *data = [msg dataUsingEncoding:NSUTF8StringEncoding];
 	[udpSocket sendData:data toHost:@"255.255.255.255" port:mBroadcastPort withTimeout:-1 tag:tag++];
     NSLog(@"sending with msg:%@ with :%ld",msg,tag);
@@ -45,23 +57,23 @@
 }
 
 - (IBAction)onStartSever:(id)sender {
+    tcpConnectionSockets = [[NSMutableArray alloc] init];
     
     //broadcast && timer to build connection
     udpSocket = [[AsyncUdpSocket alloc] initWithDelegate:self];
 	[udpSocket enableBroadcast:YES error:nil];
 	NSError *error = nil;
 	
-	if (![udpSocket bindToAddress:@"0.0.0.0" port:20003 error:&error])
+	if (![udpSocket bindToAddress:@"0.0.0.0" port:mBroadcastPort error:&error])
 	{
 		NSLog(@"Error binding: %@", error);
 		return;
 	}
 	
-	[udpSocket receiveWithTimeout:-1 tag:0];
-    
+	//[udpSocket receiveWithTimeout:-1 tag:0];
 
     [mUdpTimer invalidate];
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.3
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1
                                                       target:self selector:@selector(onBroadcastTimer:)
                                                     userInfo:nil repeats:YES];
     mUdpTimer = timer;
@@ -70,7 +82,7 @@
     tcpListenSocket = [[AsyncSocket alloc] initWithDelegate:self];
     if(![tcpListenSocket acceptOnPort:mTcpPort error:&error])
     {
-        NSLog(FORMAT(@"Error starting server: %@", error));
+        NSLog(@"Error starting server: %@", error.description);
         return;
     }
 
@@ -79,11 +91,14 @@
 - (IBAction)onStopServer:(id)sender {
     [mUdpTimer invalidate];
     [udpSocket close];
+    udpSocket = nil;
     [tcpListenSocket disconnect];
-    [tcpConnectionSocket disconnect];
+    tcpConnectionSockets = nil;
+    for (AsyncSocket* socket in tcpConnectionSockets) {
+        [socket disconnect];
+    }
+    tcpConnectionSockets = nil;
 }
-
-
 
 - (void)onUdpSocket:(AsyncUdpSocket *)sock didSendDataWithTag:(long)tag
 {
@@ -104,11 +119,11 @@
 	NSString *msg = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 	if (msg)
 	{
-		NSLog(FORMAT(@"RECV: %@", msg));
+		NSLog(@"RECV: %@", msg);
 	}
 	else
 	{
-		NSLog(FORMAT(@"RECV: Unknown message from: %@:%hu", host, port));
+		NSLog(@"RECV: Unknown message from: %@:%hu", host, port);
 	}
 	
 	[udpSocket receiveWithTimeout:-1 tag:0];
@@ -118,9 +133,7 @@
 - (void)onSocket:(AsyncSocket *)sock didAcceptNewSocket:(AsyncSocket *)newSocket
 {
     NSLog(@"didAcceptNewSocket with ip:%@:%hu",[newSocket connectedHost],[newSocket connectedPort]);
-    tcpConnectionSocket = newSocket;
-    [mUdpTimer invalidate];
-    [udpSocket close];
+    [tcpConnectionSockets addObject: newSocket];
 }
 
 - (void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
@@ -182,12 +195,13 @@
 
 - (void)onSocket:(AsyncSocket *)sock willDisconnectWithError:(NSError *)err
 {
-	NSLog(FORMAT(@"Client Disconnected: %@:%hu", [sock connectedHost], [sock connectedPort]));
+	NSLog(@"Client Disconnected: %@:%hu", [sock connectedHost], [sock connectedPort]);
 }
 
 - (void)onSocketDidDisconnect:(AsyncSocket *)sock
 {
 	NSLog(@"disconnect===");
+    [tcpConnectionSockets removeObject:sock];
 }
 
 /*
@@ -256,10 +270,7 @@
         CFRelease(event);
     }
 }
-- (void) quitApp :(id)sender
-{
-    [NSApp terminate:nil];
-}
+
 - (void)activateStatusMenu
 {
     NSStatusBar *bar = [NSStatusBar systemStatusBar];
