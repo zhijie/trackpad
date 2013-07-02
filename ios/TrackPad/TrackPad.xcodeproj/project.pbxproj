@@ -21,6 +21,8 @@
 		D5C544D11619D4BF00522508 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C544CE1619D4BE00522508 /* AsyncSocket.m */; };
 		D5C544D21619D4BF00522508 /* AsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C544D01619D4BE00522508 /* AsyncUdpSocket.m */; };
 		D5C544D41619E09200522508 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5C544D31619E09200522508 /* CFNetwork.framework */; };
+		D5E4B129161BDA50008B3D82 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = D5E4B128161BDA50008B3D82 /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		D5E4B12C161BEC0A008B3D82 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5E4B12B161BEC0A008B3D82 /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +47,9 @@
 		D5C544CF1619D4BE00522508 /* AsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncUdpSocket.h; sourceTree = "<group>"; };
 		D5C544D01619D4BE00522508 /* AsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncUdpSocket.m; sourceTree = "<group>"; };
 		D5C544D31619E09200522508 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		D5E4B127161BDA50008B3D82 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		D5E4B128161BDA50008B3D82 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		D5E4B12B161BEC0A008B3D82 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5E4B12C161BEC0A008B3D82 /* SystemConfiguration.framework in Frameworks */,
 				D5C544D41619E09200522508 /* CFNetwork.framework in Frameworks */,
 				D5B3879A160B74BE00DF8A97 /* UIKit.framework in Frameworks */,
 				D5B3879C160B74BE00DF8A97 /* Foundation.framework in Frameworks */,
@@ -92,6 +98,7 @@
 		D5B38798160B74BE00DF8A97 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D5E4B12B161BEC0A008B3D82 /* SystemConfiguration.framework */,
 				D5C544D31619E09200522508 /* CFNetwork.framework */,
 				D5B38799160B74BE00DF8A97 /* UIKit.framework */,
 				D5B3879B160B74BE00DF8A97 /* Foundation.framework */,
@@ -103,6 +110,8 @@
 		D5B3879F160B74BE00DF8A97 /* TrackPad */ = {
 			isa = PBXGroup;
 			children = (
+				D5E4B127161BDA50008B3D82 /* Reachability.h */,
+				D5E4B128161BDA50008B3D82 /* Reachability.m */,
 				D5C544CD1619D4BE00522508 /* AsyncSocket.h */,
 				D5C544CE1619D4BE00522508 /* AsyncSocket.m */,
 				D5C544CF1619D4BE00522508 /* AsyncUdpSocket.h */,
@@ -201,6 +210,7 @@
 				D5B387BC160B75A400DF8A97 /* OZLTouchpadViewController.m in Sources */,
 				D5C544D11619D4BF00522508 /* AsyncSocket.m in Sources */,
 				D5C544D21619D4BF00522508 /* AsyncUdpSocket.m in Sources */,
+				D5E4B129161BDA50008B3D82 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
