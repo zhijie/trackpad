@@ -18,7 +18,7 @@
     long tag;
 	AsyncUdpSocket *udpSocket;
     AsyncSocket* tcpListenSocket;
-    AsyncSocket* tcpConnectionSocket;
+    NSMutableArray* tcpConnectionSockets;
     NSTimer* mUdpTimer;
     
     NSStatusItem* statusbarItem;
