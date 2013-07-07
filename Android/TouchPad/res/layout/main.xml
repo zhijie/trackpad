@@ -37,7 +37,11 @@
         android:layout_below="@id/mouse_layout" 
         android:background="#ddd"
         android:layout_margin="10dip"/>
-        
+    <Button android:id="@+id/server_list_button"
+        android:layout_width="40dip"
+        android:layout_height="40dip"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"/>
 </RelativeLayout>
 
 <FrameLayout android:id="@+id/connecting_fl"
