@@ -7,21 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D55680801610B3010018F7E7 /* mouse_left.png in Resources */ = {isa = PBXBuildFile; fileRef = D556807D1610B3010018F7E7 /* mouse_left.png */; };
+		D55680811610B3010018F7E7 /* mouse_middle.png in Resources */ = {isa = PBXBuildFile; fileRef = D556807E1610B3010018F7E7 /* mouse_middle.png */; };
+		D55680821610B3010018F7E7 /* mouse_right.png in Resources */ = {isa = PBXBuildFile; fileRef = D556807F1610B3010018F7E7 /* mouse_right.png */; };
 		D5B3879A160B74BE00DF8A97 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5B38799160B74BE00DF8A97 /* UIKit.framework */; };
 		D5B3879C160B74BE00DF8A97 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5B3879B160B74BE00DF8A97 /* Foundation.framework */; };
 		D5B3879E160B74BE00DF8A97 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5B3879D160B74BE00DF8A97 /* CoreGraphics.framework */; };
 		D5B387A4160B74BE00DF8A97 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D5B387A2160B74BE00DF8A97 /* InfoPlist.strings */; };
 		D5B387A6160B74BE00DF8A97 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B387A5160B74BE00DF8A97 /* main.m */; };
 		D5B387AA160B74BE00DF8A97 /* OZLAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B387A9160B74BE00DF8A97 /* OZLAppDelegate.m */; };
-		D5B387AD160B74BE00DF8A97 /* OZLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B387AC160B74BE00DF8A97 /* OZLViewController.m */; };
-		D5B387B0160B74BE00DF8A97 /* OZLViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5B387AE160B74BE00DF8A97 /* OZLViewController_iPhone.xib */; };
-		D5B387B3160B74BE00DF8A97 /* OZLViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5B387B1160B74BE00DF8A97 /* OZLViewController_iPad.xib */; };
 		D5B387BC160B75A400DF8A97 /* OZLTouchpadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B387BA160B75A400DF8A97 /* OZLTouchpadViewController.m */; };
-		D5B387BD160B75A400DF8A97 /* OZLTouchpadViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5B387BB160B75A400DF8A97 /* OZLTouchpadViewController_iPhone.xib */; };
-		D5B387C0160B7C5900DF8A97 /* OZLTouchImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B387BF160B7C5900DF8A97 /* OZLTouchImageView.m */; };
+		D5B387BD160B75A400DF8A97 /* OZLTouchpadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D5B387BB160B75A400DF8A97 /* OZLTouchpadViewController.xib */; };
+		D5C544D11619D4BF00522508 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C544CE1619D4BE00522508 /* AsyncSocket.m */; };
+		D5C544D21619D4BF00522508 /* AsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C544D01619D4BE00522508 /* AsyncUdpSocket.m */; };
+		D5C544D41619E09200522508 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5C544D31619E09200522508 /* CFNetwork.framework */; };
+		D5E4B129161BDA50008B3D82 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = D5E4B128161BDA50008B3D82 /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		D5E4B12C161BEC0A008B3D82 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5E4B12B161BEC0A008B3D82 /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D556807D1610B3010018F7E7 /* mouse_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mouse_left.png; sourceTree = "<group>"; };
+		D556807E1610B3010018F7E7 /* mouse_middle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mouse_middle.png; sourceTree = "<group>"; };
+		D556807F1610B3010018F7E7 /* mouse_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mouse_right.png; sourceTree = "<group>"; };
 		D5B38795160B74BE00DF8A97 /* TrackPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrackPad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5B38799160B74BE00DF8A97 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D5B3879B160B74BE00DF8A97 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -32,15 +39,17 @@
 		D5B387A7160B74BE00DF8A97 /* TrackPad-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TrackPad-Prefix.pch"; sourceTree = "<group>"; };
 		D5B387A8160B74BE00DF8A97 /* OZLAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OZLAppDelegate.h; sourceTree = "<group>"; };
 		D5B387A9160B74BE00DF8A97 /* OZLAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OZLAppDelegate.m; sourceTree = "<group>"; };
-		D5B387AB160B74BE00DF8A97 /* OZLViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OZLViewController.h; sourceTree = "<group>"; };
-		D5B387AC160B74BE00DF8A97 /* OZLViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OZLViewController.m; sourceTree = "<group>"; };
-		D5B387AF160B74BE00DF8A97 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/OZLViewController_iPhone.xib; sourceTree = "<group>"; };
-		D5B387B2160B74BE00DF8A97 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/OZLViewController_iPad.xib; sourceTree = "<group>"; };
 		D5B387B9160B75A400DF8A97 /* OZLTouchpadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OZLTouchpadViewController.h; sourceTree = "<group>"; };
 		D5B387BA160B75A400DF8A97 /* OZLTouchpadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OZLTouchpadViewController.m; sourceTree = "<group>"; };
-		D5B387BB160B75A400DF8A97 /* OZLTouchpadViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OZLTouchpadViewController_iPhone.xib; sourceTree = "<group>"; };
-		D5B387BE160B7C5900DF8A97 /* OZLTouchImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OZLTouchImageView.h; sourceTree = "<group>"; };
-		D5B387BF160B7C5900DF8A97 /* OZLTouchImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OZLTouchImageView.m; sourceTree = "<group>"; };
+		D5B387BB160B75A400DF8A97 /* OZLTouchpadViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OZLTouchpadViewController.xib; sourceTree = "<group>"; };
+		D5C544CD1619D4BE00522508 /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncSocket.h; sourceTree = "<group>"; };
+		D5C544CE1619D4BE00522508 /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncSocket.m; sourceTree = "<group>"; };
+		D5C544CF1619D4BE00522508 /* AsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncUdpSocket.h; sourceTree = "<group>"; };
+		D5C544D01619D4BE00522508 /* AsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncUdpSocket.m; sourceTree = "<group>"; };
+		D5C544D31619E09200522508 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		D5E4B127161BDA50008B3D82 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		D5E4B128161BDA50008B3D82 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		D5E4B12B161BEC0A008B3D82 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +57,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5E4B12C161BEC0A008B3D82 /* SystemConfiguration.framework in Frameworks */,
+				D5C544D41619E09200522508 /* CFNetwork.framework in Frameworks */,
 				D5B3879A160B74BE00DF8A97 /* UIKit.framework in Frameworks */,
 				D5B3879C160B74BE00DF8A97 /* Foundation.framework in Frameworks */,
 				D5B3879E160B74BE00DF8A97 /* CoreGraphics.framework in Frameworks */,
@@ -57,6 +68,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D556807C1610B3010018F7E7 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				D556807D1610B3010018F7E7 /* mouse_left.png */,
+				D556807E1610B3010018F7E7 /* mouse_middle.png */,
+				D556807F1610B3010018F7E7 /* mouse_right.png */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
 		D5B3878A160B74BE00DF8A97 = {
 			isa = PBXGroup;
 			children = (
@@ -77,6 +98,8 @@
 		D5B38798160B74BE00DF8A97 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D5E4B12B161BEC0A008B3D82 /* SystemConfiguration.framework */,
+				D5C544D31619E09200522508 /* CFNetwork.framework */,
 				D5B38799160B74BE00DF8A97 /* UIKit.framework */,
 				D5B3879B160B74BE00DF8A97 /* Foundation.framework */,
 				D5B3879D160B74BE00DF8A97 /* CoreGraphics.framework */,
@@ -87,17 +110,18 @@
 		D5B3879F160B74BE00DF8A97 /* TrackPad */ = {
 			isa = PBXGroup;
 			children = (
+				D5E4B127161BDA50008B3D82 /* Reachability.h */,
+				D5E4B128161BDA50008B3D82 /* Reachability.m */,
+				D5C544CD1619D4BE00522508 /* AsyncSocket.h */,
+				D5C544CE1619D4BE00522508 /* AsyncSocket.m */,
+				D5C544CF1619D4BE00522508 /* AsyncUdpSocket.h */,
+				D5C544D01619D4BE00522508 /* AsyncUdpSocket.m */,
+				D556807C1610B3010018F7E7 /* images */,
 				D5B387A8160B74BE00DF8A97 /* OZLAppDelegate.h */,
 				D5B387A9160B74BE00DF8A97 /* OZLAppDelegate.m */,
-				D5B387AB160B74BE00DF8A97 /* OZLViewController.h */,
-				D5B387AC160B74BE00DF8A97 /* OZLViewController.m */,
-				D5B387AE160B74BE00DF8A97 /* OZLViewController_iPhone.xib */,
-				D5B387B1160B74BE00DF8A97 /* OZLViewController_iPad.xib */,
 				D5B387B9160B75A400DF8A97 /* OZLTouchpadViewController.h */,
 				D5B387BA160B75A400DF8A97 /* OZLTouchpadViewController.m */,
-				D5B387BB160B75A400DF8A97 /* OZLTouchpadViewController_iPhone.xib */,
-				D5B387BE160B7C5900DF8A97 /* OZLTouchImageView.h */,
-				D5B387BF160B7C5900DF8A97 /* OZLTouchImageView.m */,
+				D5B387BB160B75A400DF8A97 /* OZLTouchpadViewController.xib */,
 				D5B387A0160B74BE00DF8A97 /* Supporting Files */,
 			);
 			path = TrackPad;
@@ -167,9 +191,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5B387A4160B74BE00DF8A97 /* InfoPlist.strings in Resources */,
-				D5B387B0160B74BE00DF8A97 /* OZLViewController_iPhone.xib in Resources */,
-				D5B387B3160B74BE00DF8A97 /* OZLViewController_iPad.xib in Resources */,
-				D5B387BD160B75A400DF8A97 /* OZLTouchpadViewController_iPhone.xib in Resources */,
+				D5B387BD160B75A400DF8A97 /* OZLTouchpadViewController.xib in Resources */,
+				D55680801610B3010018F7E7 /* mouse_left.png in Resources */,
+				D55680811610B3010018F7E7 /* mouse_middle.png in Resources */,
+				D55680821610B3010018F7E7 /* mouse_right.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,9 +207,10 @@
 			files = (
 				D5B387A6160B74BE00DF8A97 /* main.m in Sources */,
 				D5B387AA160B74BE00DF8A97 /* OZLAppDelegate.m in Sources */,
-				D5B387AD160B74BE00DF8A97 /* OZLViewController.m in Sources */,
 				D5B387BC160B75A400DF8A97 /* OZLTouchpadViewController.m in Sources */,
-				D5B387C0160B7C5900DF8A97 /* OZLTouchImageView.m in Sources */,
+				D5C544D11619D4BF00522508 /* AsyncSocket.m in Sources */,
+				D5C544D21619D4BF00522508 /* AsyncUdpSocket.m in Sources */,
+				D5E4B129161BDA50008B3D82 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,22 +223,6 @@
 				D5B387A3160B74BE00DF8A97 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		D5B387AE160B74BE00DF8A97 /* OZLViewController_iPhone.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D5B387AF160B74BE00DF8A97 /* en */,
-			);
-			name = OZLViewController_iPhone.xib;
-			sourceTree = "<group>";
-		};
-		D5B387B1160B74BE00DF8A97 /* OZLViewController_iPad.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D5B387B2160B74BE00DF8A97 /* en */,
-			);
-			name = OZLViewController_iPad.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -276,6 +286,7 @@
 				GCC_PREFIX_HEADER = "TrackPad/TrackPad-Prefix.pch";
 				INFOPLIST_FILE = "TrackPad/TrackPad-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -287,6 +298,7 @@
 				GCC_PREFIX_HEADER = "TrackPad/TrackPad-Prefix.pch";
 				INFOPLIST_FILE = "TrackPad/TrackPad-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -310,6 +322,7 @@
 				D5B387B8160B74BE00DF8A97 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

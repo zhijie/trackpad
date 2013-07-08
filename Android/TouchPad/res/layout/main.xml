@@ -23,16 +23,43 @@
         android:text="@string/connect"/>
 </LinearLayout>
 
-<FrameLayout android:id="@+id/touchpad_layout"
+<RelativeLayout android:id="@+id/touchpad_layout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="#fff"
     android:visibility="gone">
-    <ImageView android:id="@+id/touchpoint_iv"
-        android:layout_width="50dip"
-        android:layout_height="50dip"
-        android:visibility="gone"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_launcher"/>
-</FrameLayout>
+    <RelativeLayout android:id="@+id/mouse_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+        
+        <ImageView android:id="@+id/mouse_middle_btn"
+            android:layout_width="50dip"
+            android:layout_height="150dip"
+            android:layout_centerHorizontal="true"  
+            android:src="@drawable/mouse_middle"          
+            android:scaleType="fitXY"/>
+        <ImageView android:id="@+id/mouse_left"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:src="@drawable/mouse_left"
+            android:layout_toLeftOf="@id/mouse_middle_btn"
+            android:layout_alignBottom="@id/mouse_middle_btn"/>
+        <ImageView android:id="@+id/mouse_right"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:src="@drawable/mouse_right"
+            android:layout_toRightOf="@id/mouse_middle_btn"
+            android:layout_alignBottom="@id/mouse_middle_btn"/>
+        
+    </RelativeLayout>
+    <FrameLayout android:id="@+id/touch_panel"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/mouse_layout" 
+        android:background="#ddd"
+        android:layout_margin="10dip"/>
+        
+</RelativeLayout>
 
 </FrameLayout>
