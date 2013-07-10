@@ -29,7 +29,7 @@ void CCustomSocket::OnAccept(int nErrorCode)
 { 
 	if(nErrorCode==0) 
 	{ 
-	((CTrackPadDlg*)m_pDlg)->OnSocketAccept(); 
+	((CTrackPadDlg*)m_pDlg)->OnSocketAccept(this); 
 	}
 	CAsyncSocket::OnAccept(nErrorCode); 
 } 
@@ -38,18 +38,18 @@ void CCustomSocket::OnConnect(int nErrorCode)
 { 
 	if(nErrorCode==0) 
 	{ 
-	((CTrackPadDlg*)m_pDlg)->OnSocketConnect(); 
+	((CTrackPadDlg*)m_pDlg)->OnSocketConnect(this); 
 	}
-	CAsyncSocket::OnAccept(nErrorCode); 
+	CAsyncSocket::OnConnect(nErrorCode); 
 } 
 
 void CCustomSocket::OnReceive(int nErrorCode) 
 { 
 	if(nErrorCode==0) 
 	{ 
-	((CTrackPadDlg*)m_pDlg)->OnSocketReceive(); 
+	((CTrackPadDlg*)m_pDlg)->OnSocketReceive(this); 
 	}
-	CAsyncSocket::OnAccept(nErrorCode); 
+	CAsyncSocket::OnReceive(nErrorCode); 
 } 
 
 void CCustomSocket::OnClose(int nErrorCode)
@@ -57,7 +57,7 @@ void CCustomSocket::OnClose(int nErrorCode)
 
 	if(nErrorCode==0) 
 	{ 
-	((CTrackPadDlg*)m_pDlg)->OnSocketClose(); 
+	((CTrackPadDlg*)m_pDlg)->OnSocketClose(this); 
 	}
 	CAsyncSocket::OnClose(nErrorCode);
 }

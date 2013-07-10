@@ -5,6 +5,8 @@
 
 #include "customsocket.h"
 #include "afxwin.h"
+#include <list>
+using namespace std;
 
 #define WM_SHOWTRAYBAR WM_USER+100
 #define WM_CONNECT_SERVER WM_USER+101
@@ -40,26 +42,27 @@ protected:
 	afx_msg void OnNcPaint();
 	DECLARE_MESSAGE_MAP()
 public:
-	void OnSocketAccept(void);
-	void OnSocketConnect(void);
-	void OnSocketReceive(void);
+	void OnSocketAccept(CCustomSocket* aocket);
+	void OnSocketConnect(CCustomSocket* aSocket);
+	void OnSocketReceive(CCustomSocket* aSocket);
+	void OnSocketClose(CCustomSocket* aSocket);
 
+	void ClearUpConnections();
 private:
 	CCustomSocket m_sListener;
-	CCustomSocket m_sConnected;
+	list<CCustomSocket*> m_sConnected;
 	CAsyncSocket m_broadcaster;
 	int m_port;
 	int m_broadcastPort;
-
+	BOOL m_isServerRunning;
 	NOTIFYICONDATA m_traybarData;
 public:
 	afx_msg void OnBnClickedButtonStartserver();
 	afx_msg void OnBnClickedButtonStopServer();
-	CStatic mInfoLabel;
-	CButton mBtnStartServer;
-	CButton mBtnStopServer;
+//	CStatic mInfoLabel;
+// 	CButton mBtnStartServer;
+// 	CButton mBtnStopServer;
 	void Tranlator(CString command);
-	void OnSocketClose(void);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnClose();
 	afx_msg void OnDestroy();
