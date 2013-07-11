@@ -219,11 +219,11 @@ void CTrackPadDlg::OnSocketConnect(CCustomSocket* aSocket)
 
 void CTrackPadDlg::OnSocketReceive(CCustomSocket* aSocket)
 {
-	char *pBuf =new char [1025];
+	char *pBuf =new char [2];
 
 	CString strData;
 	int iLen;
-	iLen=aSocket->Receive(pBuf,1024);
+	iLen=aSocket->Receive(pBuf,1);
 
 	if ( aSocket == &m_sListener)
 	{
@@ -236,12 +236,14 @@ void CTrackPadDlg::OnSocketReceive(CCustomSocket* aSocket)
 		}else{
 			 pBuf[iLen]=NULL;
 			 strData=pBuf;
-			 //mInfoLabel.SetWindowTextW(strData);   //display in server
-			 //UpdateData(FALSE);
-			 Tranlator(strData);
-			 //aSocket->Send(pBuf,iLen);
-			 //m_sConnected.ShutDown(0);  
-		 
+			 if (pBuf[0] == '\n')
+			 {
+				 Tranlator(mMessageReceived);
+				 mMessageReceived = CString("");
+			 }else {
+				 mMessageReceived += strData;
+			 }
+
 		}
 	}
 	delete[] pBuf;
@@ -340,7 +342,7 @@ http://msdn.microsoft.com/en-us/library/windows/desktop/ms646273(v=vs.85).aspx
 void CTrackPadDlg::Tranlator(CString commandString)
 {
 #ifdef _DEBUG
-	_cprintf("\nOnBnClickedButtonStopServer...%s",(LPCSTR)commandString);
+	_cprintf("\nTranlator...%s",(LPCSTR)commandString);
 #endif
 	// get data first, command and data
 	int nTokenPos = 0;
@@ -359,10 +361,7 @@ void CTrackPadDlg::Tranlator(CString commandString)
 	in.mi.time = 0;
 	in.mi.dwExtraInfo = 0;
 	in.mi.mouseData = 0;
-	int l = command[0].GetLength();
-	CString test = _T("MOUSEEVENTF_LEFTDOWN");
-	int ll = test.GetLength();
-	
+
 	if(command[0].Find(_T("MOUSEEVENTF_MOVE")) == 0){
 		in.mi.dwFlags = MOUSEEVENTF_MOVE;
 		in.mi.dx = _tstof(command[1].GetBuffer(command[1].GetLength()));

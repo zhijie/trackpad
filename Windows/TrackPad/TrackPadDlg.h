@@ -56,6 +56,7 @@ private:
 	int m_broadcastPort;
 	BOOL m_isServerRunning;
 	NOTIFYICONDATA m_traybarData;
+	CString mMessageReceived;
 public:
 	afx_msg void OnBnClickedButtonStartserver();
 	afx_msg void OnBnClickedButtonStopServer();
