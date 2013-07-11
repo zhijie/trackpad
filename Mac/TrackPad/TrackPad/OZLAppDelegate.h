@@ -22,6 +22,8 @@
     NSTimer* mUdpTimer;
     
     NSStatusItem* statusbarItem;
+    NSMenuItem* startServerItem;
+    NSMenuItem* stopServerItem;
 }
 
 @property (assign) IBOutlet NSWindow *window;

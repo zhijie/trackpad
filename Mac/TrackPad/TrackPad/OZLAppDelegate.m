@@ -86,6 +86,8 @@
         return;
     }
 
+    [statusbarItem.menu removeItem:startServerItem];
+    [statusbarItem.menu addItem:stopServerItem];
 }
 
 - (IBAction)onStopServer:(id)sender {
@@ -98,6 +100,9 @@
         [socket disconnect];
     }
     tcpConnectionSockets = nil;
+    
+    [statusbarItem.menu removeItem:stopServerItem];
+    [statusbarItem.menu addItem:startServerItem];
 }
 
 - (void)onUdpSocket:(AsyncUdpSocket *)sock didSendDataWithTag:(long)tag
@@ -277,19 +282,21 @@
     
     statusbarItem = [bar statusItemWithLength:NSVariableStatusItemLength];
     
-    [statusbarItem setTitle: NSLocalizedString(@"TrackPad",@"")];
+    //[statusbarItem setTitle: NSLocalizedString(@"TrackPad",@"")];
+    [statusbarItem setImage:[NSImage imageNamed:@"statusbaricon"]];
     [statusbarItem setHighlightMode:YES];
     
     NSMenu* statusmenu = [[NSMenu alloc] initWithTitle:@"menu"];
-    NSMenuItem* quitItem = [[NSMenuItem alloc] initWithTitle:@"quite" action:@selector(quitApp:) keyEquivalent:@""];
-    NSMenuItem* startServerItem = [[NSMenuItem alloc] initWithTitle:@"Start Server" action:@selector(onStartSever:) keyEquivalent:@""];
-    NSMenuItem* stopServerItem = [[NSMenuItem alloc] initWithTitle:@"Stop Server" action:@selector(onStopServer:) keyEquivalent:@""];
+    NSMenuItem* quitItem = [[NSMenuItem alloc] initWithTitle:@"Quit" action:@selector(quitApp:) keyEquivalent:@""];
+    startServerItem = [[NSMenuItem alloc] initWithTitle:@"Start Server" action:@selector(onStartSever:) keyEquivalent:@""];
+    stopServerItem = [[NSMenuItem alloc] initWithTitle:@"Stop Server" action:@selector(onStopServer:) keyEquivalent:@""];
     [startServerItem setTarget:self];
     [stopServerItem setTarget:self];
     [quitItem setTarget:self];
-    [statusmenu addItem:startServerItem];
-    [statusmenu addItem:stopServerItem];
+    
     [statusmenu addItem:quitItem];
+    [statusmenu addItem:startServerItem];
+    //[statusmenu addItem:stopServerItem];
     [statusbarItem setMenu:statusmenu];
 }
 @end

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D5141608178F29B4003CACE8 /* statusbaricon.png in Resources */ = {isa = PBXBuildFile; fileRef = D5141607178F29B4003CACE8 /* statusbaricon.png */; };
 		D5AD049E160F7FD600334DDC /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5AD049D160F7FD600334DDC /* Cocoa.framework */; };
 		D5AD04A8160F7FD600334DDC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D5AD04A6160F7FD600334DDC /* InfoPlist.strings */; };
 		D5AD04AA160F7FD600334DDC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D5AD04A9160F7FD600334DDC /* main.m */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D5141607178F29B4003CACE8 /* statusbaricon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = statusbaricon.png; sourceTree = "<group>"; };
 		D5AD0499160F7FD600334DDC /* TrackPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrackPad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5AD049D160F7FD600334DDC /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		D5AD04A0160F7FD600334DDC /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -103,6 +105,7 @@
 		D5AD04A4160F7FD600334DDC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D5141607178F29B4003CACE8 /* statusbaricon.png */,
 				D5AD04A5160F7FD600334DDC /* TrackPad-Info.plist */,
 				D5AD04A6160F7FD600334DDC /* InfoPlist.strings */,
 				D5AD04A9160F7FD600334DDC /* main.m */,
@@ -167,6 +170,7 @@
 				D5AD04A8160F7FD600334DDC /* InfoPlist.strings in Resources */,
 				D5AD04AE160F7FD600334DDC /* Credits.rtf in Resources */,
 				D5AD04B4160F7FD600334DDC /* MainMenu.xib in Resources */,
+				D5141608178F29B4003CACE8 /* statusbaricon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
