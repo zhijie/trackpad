@@ -21,9 +21,8 @@ CCustomSocket::~CCustomSocket()
 // CCustomSocket ³ÉÔ±º¯Êý
 void CCustomSocket::SetParentDlg(CDialog *pDlg)
 {
-m_pDlg=pDlg;
+	m_pDlg=pDlg;
 }
-
 
 void CCustomSocket::OnAccept(int nErrorCode) 
 { 

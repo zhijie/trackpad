@@ -182,21 +182,25 @@ HCURSOR CTrackPadDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
-
 void CTrackPadDlg::OnSocketAccept(CCustomSocket* aSocket)
 {
+	if ( aSocket != &m_sListener)
+	{
+		return;
+	}
+
 	CString strIP;
 	UINT port;
-	aSocket->SetParentDlg(this);
-	if(  m_sListener.Accept(*aSocket)){
-
+	CCustomSocket* connectionSocket = new CCustomSocket;
+	connectionSocket->SetParentDlg(this);
+	if(  m_sListener.Accept(*connectionSocket)){
 		aSocket->GetSockName(strIP,port);
 // 		mInfoLabel.SetWindowTextW(_T("Client Connected,IP :")+ strIP);
 // 		UpdateData(FALSE);
 #ifdef _DEBUG
 		_cprintf("\nClient Connected,IP :%s", strIP);
 #endif
-		m_sConnected.push_back(aSocket);
+		m_sConnected.push_back(connectionSocket);
 	}else{
 
 #ifdef _DEBUG
@@ -216,30 +220,42 @@ void CTrackPadDlg::OnSocketConnect(CCustomSocket* aSocket)
 void CTrackPadDlg::OnSocketReceive(CCustomSocket* aSocket)
 {
 	char *pBuf =new char [1025];
+
 	CString strData;
 	int iLen;
 	iLen=aSocket->Receive(pBuf,1024);
-	if(iLen==SOCKET_ERROR)	{
+
+	if ( aSocket == &m_sListener)
+	{
+		return;
+	}else {
+		if(iLen==SOCKET_ERROR)	{
 #ifdef _DEBUG
 		_cprintf("\nCould not Receive");
 #endif
-	}else{
-		 pBuf[iLen]=NULL;
-		 strData=pBuf;
-		 //mInfoLabel.SetWindowTextW(strData);   //display in server
-		 //UpdateData(FALSE);
-		 Tranlator(strData);
-		 //aSocket->Send(pBuf,iLen);
-		 //m_sConnected.ShutDown(0);  
-		 delete pBuf;
+		}else{
+			 pBuf[iLen]=NULL;
+			 strData=pBuf;
+			 //mInfoLabel.SetWindowTextW(strData);   //display in server
+			 //UpdateData(FALSE);
+			 Tranlator(strData);
+			 //aSocket->Send(pBuf,iLen);
+			 //m_sConnected.ShutDown(0);  
+		 
+		}
 	}
+	delete[] pBuf;
 }
 
 
 void CTrackPadDlg::OnSocketClose(CCustomSocket* aSocket)
 {
-	aSocket->Close();
-	m_sConnected.remove(aSocket);
+	if ( aSocket == &m_sListener)
+	{
+	}else
+	{
+		m_sConnected.remove(aSocket);
+	}
 }
 
 
@@ -258,7 +274,7 @@ void CTrackPadDlg::OnBnClickedButtonStartserver()
 	BOOL bOptVal = true;
 	if(m_broadcaster.SetSockOpt(SO_BROADCAST,(void*)&bOptVal,sizeof(BOOL)) == SOCKET_ERROR) {
 #ifdef _DEBUG
-		_cprintf("\nUnable to set sockopt,Error code : %d",GetLastError());
+		_cprintf("\nUnable to set sock opt,Error code : %d",GetLastError());
 #endif
 		return;	
 	}
