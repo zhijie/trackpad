@@ -1,5 +1,3 @@
-Trackpad
-========
 
 Use your Iphone or Android as a trackpad for your Mac/PC. Make your smartphone smarter.
 
@@ -15,3 +13,7 @@ PC/Mac client:
 1. When program starts, broadcast UDP to intranet every some time, at the same time setup TCP listener.
 2. Accept any TCP request. This means, you can use more than one phone to control your computer at same time.
 3. Use menu bar to start or stop pc client.
+
+
+use your iphone or android as a trackpad for your mac/pc. make your smartphone smarter
+
