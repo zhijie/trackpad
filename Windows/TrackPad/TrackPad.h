@@ -22,6 +22,8 @@ public:
 // Overrides
 	public:
 	virtual BOOL InitInstance();
+	virtual int ExitInstance();
+
 
 // Implementation
 

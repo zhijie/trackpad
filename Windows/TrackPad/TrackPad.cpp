@@ -35,6 +35,12 @@ CTrackPadApp theApp;
 
 BOOL CTrackPadApp::InitInstance()
 {
+
+#ifdef _DEBUG
+	if (!AllocConsole())
+		AfxMessageBox(_T("Failed to create the console!"), MB_ICONEXCLAMATION);
+#endif
+
 	// InitCommonControlsEx() is required on Windows XP if an application
 	// manifest specifies use of ComCtl32.dll version 6 or later to enable
 	// visual styles.  Otherwise, any window creation will fail.
@@ -53,6 +59,7 @@ BOOL CTrackPadApp::InitInstance()
 		return FALSE;
 	}
 
+
 	AfxEnableControlContainer();
 
 	// Standard initialization
@@ -65,7 +72,7 @@ BOOL CTrackPadApp::InitInstance()
 	SetRegistryKey(_T("Local AppWizard-Generated Applications"));
 
 	if( AfxSocketInit() == FALSE) { 
-        AfxMessageBox(L"Sockets Could Not Be Initialized"); 
+        AfxMessageBox("Sockets Could Not Be Initialized"); 
         return FALSE; 
     }
 
@@ -86,4 +93,16 @@ BOOL CTrackPadApp::InitInstance()
 	// Since the dialog has been closed, return FALSE so that we exit the
 	//  application, rather than start the application's message pump.
 	return FALSE;
+}
+
+
+int CTrackPadApp::ExitInstance()
+{
+
+#ifdef _DEBUG
+	if (!FreeConsole())
+		AfxMessageBox(_T("Could not free the console!"));
+#endif
+
+	return CWinApp::ExitInstance();
 }

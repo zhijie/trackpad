@@ -2,7 +2,7 @@
 
 #include "stdafx.h"
 
-// CCustomSocket ÃüÁîÄ¿±ê
+// CCustomSocket
 
 class CCustomSocket : public CAsyncSocket
 {
